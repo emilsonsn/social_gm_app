@@ -1,21 +1,24 @@
-<div class="card card-stats">
+<div class="card card-stats" (click)="onCardClick.emit(data)">
   <div class="card-header card-header-icon">
     <div class="card-icon" [ngStyle]="{'background': data?.background, 'color': data?.color}">
-      <i class="{{data?.icon}}"></i>
+      <!-- <i class="{{data?.icon}}"></i> -->
+       <img src="{{ data?.profilePicUrl ?? 'https://marketup.com/wp-content/themes/marketup/assets/icons/perfil-vazio.jpg' }}" alt="">
     </div>
     <p class="card-category">
       <span>
-        {{ data?.category }}
+        {{ data?.name }}
       </span>
     </p>
-    <h3 class="card-title">{{ data?.title }}</h3>
+    <h3 class="card-title {{ data.connectionStatus }}">
+      {{ data?.connectionStatus === 'open' ? 'Conectado' : 'Desconectado' }}
+    </h3>
   </div>
   <div class="card-footer">
-    <div class="stats">
-      @if (data?.icon_description) {
-        <i class="{{data?.icon_description}}"></i>
-      }
-      <p>{{ data?.description }}</p>
+    <div class="stats" style="color:white !important;">
+      <i class="fa-solid fa-comments"></i>
+      <p>{{ data?._count.Chat }}</p>
+      <i class="fa-solid fa-address-book"></i>
+      <p>{{ data?._count.Contact }}</p>
     </div>
   </div>
 </div>

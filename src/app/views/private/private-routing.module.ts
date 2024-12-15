@@ -19,19 +19,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'requests',
-        loadChildren: () => import('./requests/requests.module').then(m => m.RequestsModule),
-        canActivate: [permissionGuard],
+        path: 'instance',
+        loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule),        
         data: {
-          page: 'requests'
-        }
-      },
-      {
-        path: 'orders',
-        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
-        canActivate: [permissionGuard],
-        data: {
-          page: 'orders'
+          page: 'instace'
         }
       },
       {
@@ -40,46 +31,6 @@ const routes: Routes = [
         canActivate: [permissionGuard],
         data: {
           page: 'collaborator'
-        }
-      },
-      {
-        path: 'construction',
-        loadChildren: () => import('./construction/construction.module').then(m => m.ConstructionModule),
-        canActivate: [permissionGuard],
-        data: {
-          page: 'construction'
-        }
-      },
-      {
-        path: 'provider',
-        loadChildren: () => import('./provider/provider.module').then(m => m.ProviderModule),
-        canActivate: [permissionGuard],
-        data: {
-          page: 'provider'
-        }
-      },
-      {
-        path: 'services',
-        loadChildren: () => import('./services/services.module').then(m => m.ServicesModule),
-        canActivate: [permissionGuard],
-        data: {
-          page: 'services'
-        }
-      },
-      {
-        path: 'tasks',
-        loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule),
-        canActivate: [permissionGuard],
-        data: {
-          page: 'tasks'
-        }
-      },
-      {
-        path: 'client',
-        loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
-        canActivate: [permissionGuard],
-        data: {
-          page: 'client'
         }
       },
       {

@@ -1,0 +1,36 @@
+<div class="filters mb-3">
+    <div class="row col-12">        
+        <div class="col-md-4">
+            <label for="description">Descrição</label>
+            <input id="description" type="text" class="form-control" placeholder="Descrição do agendamento">
+        </div>
+
+        <div class="col-md-4">
+            <label for="description">Data de envio</label>
+            <input id="datetime" type="datetime-local" class="form-control">
+        </div>
+
+        <div class="col-md-2 pt-4">            
+            <input value="Filtrar" id="" type="submit" class="btn btn-green" style="width: 100%;">
+        </div>
+        <div class="col-md-2 pt-4">            
+            <button class="btn btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-plus"></i>
+                Novo
+            </button>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="mb-4">
+    <h3>
+        <i class="fa-regular fa-calendar"></i>
+        Segunda feira - 14/12/2024
+    </h3>
+</div>
+
+<app-table-scheduling
+[loading]="loading">
+</app-table-scheduling>

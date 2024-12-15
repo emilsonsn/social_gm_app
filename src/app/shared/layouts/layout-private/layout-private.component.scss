@@ -5,7 +5,6 @@ main {
   align-items: stretch;
   height: 100dvh;
   overflow-y: hidden;
-  background-color: $gray-300;
 
   section {
     flex: 1;
@@ -19,6 +18,7 @@ main {
     background-color: $white-200;
 
     .content {
+      position: relative;
       flex: 1;
       padding-top: 1rem;
       padding-bottom: 0;

@@ -1,10 +1,14 @@
 import {Component, computed, Signal, signal} from '@angular/core';
-import {ISmallInformationCard} from "@models/cardInformation";
 import {Chart, registerables} from "chart.js";
 import {DashboardService} from "@services/dashboard.service";
 import {ApiResponse} from "@models/application";
 import {OrderData} from "@models/dashboard";
 import {formatCurrency} from "@angular/common";
+import { InstanceService } from '@services/instance.service';
+import { connect, finalize } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogInstanceComponent } from '@shared/dialogs/dialog-instance/dialog-instance.component';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +16,8 @@ import {formatCurrency} from "@angular/common";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+
+  public loading: boolean = false;
 
   dashboardCards = signal<OrderData>(
     {
@@ -26,167 +32,91 @@ export class HomeComponent {
     }
   );
 
-  constructor(private readonly _dashboardService: DashboardService) {
-    _dashboardService.getDashboardCards().subscribe((c: ApiResponse<OrderData>) => {
-      this.dashboardCards.set(c.data);
-    });
+  constructor(
+    private readonly _instanceService: InstanceService,
+    private readonly _router: Router,
+    private readonly _dialog: MatDialog
+  ) {
   }
 
-  itemsShopping: Signal<ISmallInformationCard[]> = computed<ISmallInformationCard[]>(() => [
-    {
-      icon: 'fa-solid fa-cart-plus',
-      icon_description: 'fa-solid fa-calendar-day',
-      background: '#FC9108',
-      title: formatCurrency(+this.dashboardCards().ordersByDay.toString(), 'pt-BR', 'R$'),
-      category: 'Compras',
-      description: 'Total de compras do dia',
-    },
-    {
-      icon: 'fa-solid fa-truck-fast',
-      icon_description: 'fa-solid fa-calendar-week',
-      background: '#4CA750',
-      title: formatCurrency(+this.dashboardCards().ordersByWeek.toString(), 'pt-BR', 'R$'),
-      category: 'Compras',
-      description: 'Total de compras da semana',
-    },
-    {
-      icon: 'fa-solid fa-shop',
-      icon_description: 'fa-regular fa-calendar',
-      background: '#E9423E',
-      title: formatCurrency(+this.dashboardCards().ordersByMonth.toString(), 'pt-BR', 'R$'),
-      category: 'Compras',
-      description: 'Total de compras do mês',
-    },
-    {
-      icon: 'fa-solid fa-money-check-dollar',
-      icon_description: 'fa-solid fa-calendar',
-      background: '#0AB2C7',
-      title: formatCurrency(+this.dashboardCards().ordersByYear.toString(), 'pt-BR', 'R$'),
-      category: 'Compras',
-      description: 'Total de compras do ano',
-    },
-  ]);
-  itemsRequests: Signal<ISmallInformationCard[]> = computed<ISmallInformationCard[]>(() => [
-    {
-      icon: 'fa-solid fa-clock',
-      background: '#FC9108',
-      title: this.dashboardCards().pendingOrders,
-      category: 'Pedidos',
-      description: 'Pedidos pendentes',
-    },
-    {
-      icon: 'fa-solid fa-envelope-open',
-      // icon_description: 'fa-solid fa-calendar-day',
-      // background: '#17a2b8',
-      title: this.dashboardCards().awaitingFinanceOrders,
-      category: 'Pedidos',
-      description: 'Solicitações em aberto',
-    },
-    {
-      icon: 'fa-solid fa-calendar-times',
-      // icon_description: 'fa-solid fa-calendar-day',
-      background: '#dc3545',
-      title: this.dashboardCards().solicitationPendings,
-      category: 'Pedidos',
-      description: 'Pedidos vencidos',
-    }, {
-      icon: 'fa-solid fa-check-circle',
-      // icon_description: 'fa-solid fa-calendar-day',
-      background: '#28a745',
-      title: this.dashboardCards().solicitationFinished,
-      category: 'Pedidos',
-      description: 'Pedidos resolvidos',
-    },
-  ]);
+  instances :any[] = [];
 
-  lineChart: any = {
-    type: 'line',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [{
-        label: 'Compras',
-        data: [], // Dados de compras por mês
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 2,
-        fill: true,
-        tension: 0.1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          beginAtZero: true
-        },
-        y: {
-          beginAtZero: true
+  getInstances(){
+    this.loading = true;
+    this._instanceService.search({})
+    .pipe(finalize(() => this.loading = false))
+    .subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.instances = res.data;
         }
-      }
-    }
-  };
+      },
+      error: (error) => console.error('Error:', error)
+    })
+  }
 
-  barChart: any = {
-    type: 'bar',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [{
-        label: 'Pedidos',
-        data: [10, 150, 180, 300, 170, 80, 240, 250, 150, 210, 180, 190], // Dados de compras por mês
-        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: {
-          beginAtZero: true
-        },
-        y: {
-          beginAtZero: true
+  createNewInstance(qrcode?){
+    const dialogConfig: MatDialogConfig = {
+      width: '80%',
+      maxWidth: '400px',
+      hasBackdrop: true,
+      closeOnNavigation: true,
+    };
+
+    this._dialog
+      .open(DialogInstanceComponent, {
+        data: qrcode ?? null,
+        ...dialogConfig,
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.create(res);
+        }else{
+          this.getInstances();
         }
+      });
+  }
+
+  create(instance){
+    this.loading = false;
+    this._instanceService.create(instance)
+    .pipe(finalize(() => this.loading = false))
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {        
       }
-    }
-  };
-  filters: any = {
-    is_home: true
-  };
+    })
+  }
+
 
   ngOnInit() {
-    Chart.register(...registerables);
-
-    // Initialize the charts and store the instances
-    // this.lineChart = new Chart('lineChart', this.lineChart);
-    this.barChart = new Chart('barChart', this.barChart);
-
-    this._dashboardService.getPurchaseGraphicBar().subscribe((c: ApiResponse<{ month: string, total: number }[]>) => {
-      const months = c.data.map(d => d.month); // Extract months
-      const totals = c.data.map(d => d.total); // Extract totals
-
-      if (this.barChart && this.barChart instanceof Chart) {
-        this.barChart.data.labels = months;
-        this.barChart.data.datasets[0].data = totals;
-        this.barChart.update(); // Update chart
-      }
-    });
-
-    /*this._dashboardService.getPurchaseGraphicLine().subscribe((c: ApiResponse<{ month: string, total: number }[]>) => {
-      const months = c.data.map(d => d.month); // Extract months
-      const totals = c.data.map(d => d.total); // Extract totals
-
-      // Ensure charts are initialized before updating
-      if (this.lineChart && this.lineChart instanceof Chart) {
-        this.lineChart.data.labels = months;
-        this.lineChart.data.datasets[0].data = totals;
-        this.lineChart.update(); // Update chart
-      }
-    });*/
+    this.getInstances();
   }
 
+  onCardClick(instance){
+    if(instance.connectionStatus === 'open'){
+      this._router.navigate(['/painel/instance/' + instance.id]);
+    }else{
+      this.connectInstance(instance.name);
+    }
+  }
 
+  connectInstance(instanceName){
+    this.loading = true;
+    this._instanceService.connect(instanceName)
+    .pipe(finalize(() => this.loading = false))
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.createNewInstance(res.data);
+      },
+      error: (error) => {
+        // this.toa error.error.message
+      }
+    })
+  }
 
 }

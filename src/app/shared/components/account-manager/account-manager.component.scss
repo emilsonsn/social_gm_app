@@ -6,6 +6,7 @@ main {
   align-items: center;
   justify-content: center;
   height: 100%;
+  background-color: black;
 
   section {
     height: 100%;
@@ -22,6 +23,14 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: start;
+    background-color: black;
+    color: white;
+
+    ::ng-deep mat-form-field {
+      background-color: white !important;
+      border-radius: 10px;
+    }
+    
 
     .form-main {
       padding-top: 35px;
@@ -59,7 +68,7 @@ main {
   .display-animation {
     gap: 0.5rem;
     flex-grow: 1;
-    background-color: $primary;
+    background-color: black;
     color: white;
     text-transform: uppercase;
   }

@@ -1,6 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {ISmallInformationCard} from "@models/cardInformation";
-
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-small-information-card',
@@ -8,6 +6,9 @@ import {ISmallInformationCard} from "@models/cardInformation";
   styleUrl: './small-information-card.component.scss'
 })
 export class SmallInformationCardComponent {
-  @Input() data!: ISmallInformationCard;
+  @Input() data!: any;
+
+  @Output()
+  onCardClick: EventEmitter<any> = new EventEmitter();
 
 }

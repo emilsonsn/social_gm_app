@@ -8,11 +8,13 @@ import {
 import {MatDivider} from "@angular/material/divider";
 import {KanbanComponent} from "@shared/components/kanban/kanban.component";
 import {CdkDrag, CdkDragPlaceholder, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
+import { LoadingComponent } from './loading/loading.component';
 
 const components: any[] = [
   AccountManagerComponent,
   SmallInformationCardComponent,
-  KanbanComponent
+  KanbanComponent,
+  LoadingComponent
 ]
 
 @NgModule({

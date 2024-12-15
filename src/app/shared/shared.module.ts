@@ -3,11 +3,11 @@ import {CommonModule} from '@angular/common';
 import {MatPaginatorIntl} from "@angular/material/paginator";
 import {PaginatorPtBR} from "./config/paginator";
 import {ComponentsModule} from "./components/components.module";
-import {DialogsModule} from "./dialogs/dialogs.module";
 import {DirectivesModule} from "./directives/directives.module";
 import {PipesModule} from "./pipes/pipes.module";
-import {TablesModule} from "./tables/tables.module";
 import {LayoutsModule} from "@shared/layouts/layouts.module";
+import { TablesModule } from './tables/tables.module';
+import { DialogsModule } from './dialogs/dialogs.module';
 
 
 @NgModule({
@@ -15,15 +15,14 @@ import {LayoutsModule} from "@shared/layouts/layouts.module";
   imports: [
     CommonModule,
     ComponentsModule,
-    DialogsModule,
     DirectivesModule,
     LayoutsModule,
     PipesModule,
-    TablesModule
+    TablesModule,
+    DialogsModule
   ],
   exports: [
     ComponentsModule,
-    DialogsModule,
     DirectivesModule,
     LayoutsModule,
     PipesModule,

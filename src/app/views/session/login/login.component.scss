@@ -10,11 +10,21 @@
   button {
     width: 100%;
     align-self: flex-end;
+    font-weight: 600;
+  }
+
+  button[type="submit"]{
+    background-color: #05f5b9;
+    color: #0a0a0a;
+    font-weight: 600 !important;
   }
 
   .forgot-password {
     display: flex;
     justify-content: flex-end;
+    a{
+      color: white !important;
+    }
 
     p {
       margin: 0 0 1rem;

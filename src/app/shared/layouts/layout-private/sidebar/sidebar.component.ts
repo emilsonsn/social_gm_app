@@ -8,7 +8,14 @@ import { SidebarService } from '@services/sidebar.service';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  @Input() menuItem: IMenuItem[] = []
+  @Input() menuItem: IMenuItem[] = [
+    {
+      label: 'Home',
+      icon: 'fa-solid fa-house',
+      route: '/painel/home',
+      active: true,
+    },
+  ]
 
   constructor(
     protected readonly _sidebarService : SidebarService
