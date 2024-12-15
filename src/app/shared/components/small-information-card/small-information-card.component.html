@@ -9,7 +9,7 @@
         {{ data?.name }}
       </span>
     </p>
-    <h3 class="card-title {{ data.connectionStatus }}">
+    <h3 class="card-title status {{ data.connectionStatus }}">
       {{ data?.connectionStatus === 'open' ? 'Conectado' : 'Desconectado' }}
     </h3>
   </div>
@@ -19,6 +19,7 @@
       <p>{{ data?._count.Chat }}</p>
       <i class="fa-solid fa-address-book"></i>
       <p>{{ data?._count.Contact }}</p>
+      <i class="fa-solid fa-trash c-red" (click)="deleteItem(data.id, $event)"></i>
     </div>
   </div>
 </div>

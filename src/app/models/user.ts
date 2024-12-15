@@ -14,19 +14,14 @@ export interface User {
   updatedAt : string;
   admin?: boolean;
   photo?: string;
-
-  sector?: UserSector;
-  company_position?: UserPosition;
+  role: UserRole;
 }
 
-export interface UserPosition {
-  id? : string,
-  position : string
-}
 
-export interface UserSector {
-  id? : number,
-  sector : string
+export enum UserRole {
+  Admin = 'Admin',  
+  Manager = 'Manager',
+  User = 'User',
 }
 
 export interface UserCards {

@@ -1,0 +1,161 @@
+<mat-dialog-content>
+  <app-loading [loading]="loading"></app-loading>
+  <div class="d-flex align-items-center justify-content-between">
+    {{ title }}
+    <div class="d-flex align-items-center gap-2">
+      <div matRipple class="close" (click)="onCancel()">
+        <i class="fa-solid fa-close"></i>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="my-3"></mat-divider>
+
+  <div class="schedule-container">
+    <form [formGroup]="form" class="mt-3" style="overflow: hidden;">
+      <div class="row">
+        <!-- Descrição -->
+        <div class="col col-md-12 mb-3">
+          <span class="fw-bolder">Descrição</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="text" formControlName="description" matInput placeholder="Descrição do agendamento" />
+          </mat-form-field>
+        </div>
+
+        <div class="col col-md-12 mb-3" *ngIf="role == 'Admin'">
+          <span class="fw-bolder">Tipo</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="status" placeholder="Tipo de cadastro">
+              <mat-option [value]="'Model'">Biblioteca</mat-option>
+              <mat-option [value]="'Waiting'">Disparo</mat-option>              
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <!-- Grupo -->
+        <div class="col col-md-12 mb-3">
+          <span class="fw-bolder">Grupo</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select   formControlName="group_id" placeholder="Selecione um grupo">
+              <mat-option *ngFor="let group of groups"
+              (click)="setGroupName(group.subject)"
+              [value]="group.id">{{ group.subject }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Texto -->
+        <div class="col col-md-12 mb-3">
+          <span class="fw-bolder">Texto</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <textarea formControlName="text" matInput placeholder="Insira o texto"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="col col-md-12 mb-3">
+          <span class="fw-bolder">Link</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select   formControlName="link_id" placeholder="Selecione um grupo">
+              <mat-option *ngFor="let link of links"              
+              [value]="link.id">{{ link.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="col col-md-12 mb-3">
+          <span class="fw-bolder">Midia</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="midia" placeholder="Tipo de mídia">
+              <mat-option [value]="">Sem mídia</mat-option>
+              <mat-option [value]="'imagem'">Imagem</mat-option>
+              <mat-option [value]="'audio'">Áudio</mat-option>
+              <mat-option [value]="'video'">Vídeo</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>                                  
+  
+        <!-- Vídeo -->
+        <div (change)="onFileChange($event, 'video_path')" *ngIf="form.get('midia').value === 'video'" class="col col-md-12 mb-3">
+          <span class="fw-bolder">Vídeo</span>
+          <input type="file" formControlName="video_path" accept=".mp4" class="form-control" />
+        </div>
+  
+        <!-- Áudio -->
+        <div (change)="onFileChange($event, 'audio_path')" *ngIf="form.get('midia').value === 'audio'" class="col col-md-12 mb-3">
+          <span class="fw-bolder">Áudio</span>
+          <input type="file" formControlName="audio_path" accept=".mp3" class="form-control" />
+        </div>
+  
+        <!-- Imagem -->
+        <div (change)="onFileChange($event, 'image_path')" *ngIf="form.get('midia').value === 'imagem'" class="col col-md-12 mb-3">
+          <span class="fw-bolder">Imagem</span>
+          <input type="file" formControlName="image_path" accept=".jpg, .png" class="form-control" />
+        </div>
+  
+        <!-- Data e Hora -->
+        <div class="col col-md-12 mb-3">
+          <span class="fw-bolder">Data e Hora</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <input type="datetime-local" formControlName="datetime" matInput />
+          </mat-form-field>
+        </div>
+  
+        <!-- Menção -->
+        <div class="col col-md-12 mb-3">
+          <span class="fw-bolder">Menção</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="mention" placeholder="Deve colocar menção?">
+              <mat-option [value]="1">Sim</mat-option>
+              <mat-option [value]="0">Não</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+
+    <div class="preview">
+      <div>
+        <img
+        *ngIf="form.get('midia').value === 'imagem'"
+        src="{{ _data?.schedule?.image_path ?? 'assets/images/imagem.png'}}"
+        >
+
+        <img
+        *ngIf="form.get('midia').value === 'audio'"
+        src="assets/images/audio.png"
+        >
+
+        @if(_data?.schedule?.video_path){
+          <video autoplay src="{{ _data?.schedule?.video_path }}"></video>
+        }
+        @else {
+          <img
+          *ngIf="form.get('midia').value === 'video'"
+          src="assets/images/video.png"
+          >
+        }
+        <div class="ballon" [innerHTML]="formattedText"></div>
+      </div>
+    </div>
+  </div>
+
+  
+</mat-dialog-content>
+
+
+<mat-dialog-actions *ngIf="!_data.view">
+  <div class="w-100 me-2">
+    <div id="actionsDialog" class="flex-sm-row flex-column">
+      <div id="buttonsDialog" class="flex-sm-row flex-column">
+        <div class="col-auto">
+          <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
+        </div>
+        <div class="col-auto">
+          <button matRipple id="submit" class="button primary" (click)="!loading ? onConfirm() : null">{{
+            "Salvar"
+            }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

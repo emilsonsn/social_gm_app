@@ -23,20 +23,20 @@
       text-align: right;
     }
 
-    .open, .connecting{
+    .status{
       font-size: 1.1rem;
       border-radius: 10px;
       text-align: center;
       padding: 5px 0;
       margin-top: 5px;
-    }
-
-    .open{
-      background: green;
+      background: red !important;
     }
     .connecting{
-      background: orange;
+      background: orange !important;
     }
+    .open{
+      background: green !important;
+    }    
 
     .card-icon + .card-title,
     .card-icon + .card-category {
@@ -91,6 +91,10 @@
 
     p {
       margin: 0;
+    }
+
+    .c-red{
+      color: red;
     }
   }
 }

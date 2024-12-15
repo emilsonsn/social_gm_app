@@ -12,10 +12,12 @@ import { TableUserComponent } from './table-users/table-users.component';
 import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { TableSchedulingComponent } from './table-scheduling/table-scheduling.component';
+import { TableLinkComponent } from './table-link/table-link.component';
 
 const tables = [
   TableUserComponent,
-  TableSchedulingComponent
+  TableSchedulingComponent,
+  TableLinkComponent
 ]
 
 @NgModule({

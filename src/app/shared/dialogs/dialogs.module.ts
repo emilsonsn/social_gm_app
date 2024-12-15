@@ -24,10 +24,16 @@ import {TablesModule} from '@shared/tables/tables.module';
 import {MatIcon} from "@angular/material/icon";
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import { DialogInstanceComponent } from './dialog-instance/dialog-instance.component';
+import { DialogScheduleComponent } from './dialog-schedule/dialog-schedule.component';
+import { DialogLinkComponent } from './dialog-link/dialog-link.component';
+import { DialogAutomationComponent } from './dialog-automation/dialog-automation.component';
 
 @NgModule({
   declarations: [
-    DialogInstanceComponent
+    DialogInstanceComponent,
+    DialogScheduleComponent,
+    DialogLinkComponent,
+    DialogAutomationComponent,
   ],
   imports: [
     CommonModule,

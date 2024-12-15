@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Positions, UserPosition } from '@models/user';
+import { Positions } from '@models/user';
 
 @Pipe({
   name: 'companyPosition'

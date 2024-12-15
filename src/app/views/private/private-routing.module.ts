@@ -19,6 +19,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'link',
+        loadChildren: () => import('./link/link.module').then(m => m.LinkModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'link'
+        }
+      },
+      {
         path: 'instance',
         loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule),        
         data: {

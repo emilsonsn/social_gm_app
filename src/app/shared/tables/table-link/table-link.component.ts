@@ -1,18 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Order, PageControl } from '@models/application';
-import { Scheduling } from '@models/Scheduling';
+import { Link } from '@models/link';
 import { User } from '@models/user';
+import { LinkService } from '@services/link.service';
 import { ScheduleService } from '@services/schedule.service';
 import { UserService } from '@services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'app-table-scheduling',
-  templateUrl: './table-scheduling.component.html',
-  styleUrl: './table-scheduling.component.scss'
+  selector: 'app-table-link',
+  templateUrl: './table-link.component.html',
+  styleUrl: './table-link.component.scss'
 })
-export class TableSchedulingComponent implements OnInit {
+export class TableLinkComponent implements OnInit {
   @Input()
   searchTerm?: string = '';
 
@@ -20,63 +21,30 @@ export class TableSchedulingComponent implements OnInit {
   loading: boolean = false;
 
   @Input()
-  isAdmin: boolean = false;
-
-  @Input()
-  isLibrary: boolean = false;
-
-  @Input()
-  instance_id: string;
-
-  @Input()
   filters: any;
 
   @Output()
-  onSchedulingClick: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
+  onLinkClick: EventEmitter<Link> = new EventEmitter<Link>();
 
   @Output()
-  onSchedulingImport: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
+  onLinkView: EventEmitter<Link> = new EventEmitter<Link>();
 
   @Output()
-  onSchedulingView: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
-  
-  @Output()
-  onDeleteSchedulingClick: EventEmitter<number> = new EventEmitter<number>();
- 
-  @Output()
-  onSchedulingCopy: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
-  
-  public schedules: Scheduling[] = [];
+  onDeleteLinkClick: EventEmitter<number> = new EventEmitter<number>();
+
+  public links: Link[] = [];
 
   public columns = [
     {
-      slug: "description",
+      slug: "name",
       order: true,
-      title: "Descrição",
+      title: "Nome",
       align: "text-center",
     },
     {
-      slug: "group_id",
+      slug: "url",
       order: true,
-      title: "Grupo",
-      align: "text-center",
-    },
-    {
-      slug: "datetime",
-      order: true,
-      title: "Data e hora de envio",
-      align: "text-center",
-    },
-    {
-      slug: "",
-      order: true,
-      title: "Dia",
-      align: "text-center",
-    },
-    {
-      slug: "status",
-      order: true,
-      title: "Status",
+      title: "Url",
       align: "text-center",
     },
     {
@@ -98,8 +66,7 @@ export class TableSchedulingComponent implements OnInit {
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _userService: UserService,
-    private readonly _scheduleService: ScheduleService
+    private readonly _linkService: LinkService
   ) {}
 
   ngOnInit(){
@@ -117,9 +84,7 @@ export class TableSchedulingComponent implements OnInit {
     else if ( filters?.previousValue && filters?.currentValue !== filters?.previousValue ) {
 			this._onSearch();
 		}
-    else if ( instance_id?.currentValue) {
-			this._onSearch();
-		}
+
   }
 
   private _initOrStopLoading(): void {
@@ -139,14 +104,13 @@ export class TableSchedulingComponent implements OnInit {
   search(): void {
     this._initOrStopLoading();
 
-    this._scheduleService
-      .search(this.pageControl, {
-        instance_id: this.instance_id,
+    this._linkService
+      .getLinks(this.pageControl, {        
         ...this.filters
       })
       .pipe(finalize(() => this._initOrStopLoading()))
       .subscribe((res) => {
-        this.schedules = res.data;
+        this.links = res.data;
 
         this.pageControl.page = res.current_page - 1;
         this.pageControl.itemCount = res.total;
@@ -170,28 +134,6 @@ export class TableSchedulingComponent implements OnInit {
     this.search();
   }
 
-  getWeekDay(data: string | Date): string {
-    const diasSemana = [
-      'Domingo',
-      'Segunda',
-      'Terça',
-      'Quarta',
-      'Quinta',
-      'Sexta',
-      'Sábado',
-    ];
-  
-    // Converte a data para um objeto Date se for uma string
-    const dataObj = typeof data === 'string' ? new Date(data) : data;
-  
-    // Verifica se a data é válida
-    if (isNaN(dataObj.getTime())) {
-      throw new Error('Data inválida');
-    }
-  
-    return diasSemana[dataObj.getDay()];
-  }
-  
   pageEvent($event: any) {
     this.pageControl.page = $event.pageIndex + 1;
     this.pageControl.take = $event.pageSize;

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { InstanceRoutingModule } from './instance-routing.module';
 import { InstanceComponent } from './instance/instance.component';
 import { SharedModule } from '@shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedModule } from '@shared/shared.module';
   imports: [
     CommonModule,
     InstanceRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class InstanceModule { }

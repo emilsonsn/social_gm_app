@@ -25,6 +25,12 @@ export class LayoutPrivateComponent {
       active: true
     },
     {
+      label: 'Links',
+      icon: 'fa-solid fa-link',
+      route: '/painel/link',
+      active: true
+    },
+    {
       label: 'Usuários',
       icon: 'fa-solid fa-users',
       route: '/painel/collaborator'

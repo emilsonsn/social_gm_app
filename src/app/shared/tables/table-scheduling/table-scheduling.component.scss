@@ -1,0 +1,21 @@
+
+.Waiting, .Inactive, .Model, .Sent{
+    color: white;
+    padding: 0 5px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.Waiting{
+    background-color: orange;
+
+}
+.Inactive{
+    background-color: red;
+}
+.Model{
+    background-color: rgb(0, 103, 121);
+}
+.Sent{
+    background-color: green;
+}

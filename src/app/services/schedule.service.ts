@@ -36,7 +36,7 @@ export class ScheduleService {
       return this._http.delete<DeleteApiResponse>(`${environment.api}/${this.sessionEndpoint}/${id}`);
   }
 
-  public update(id: number, request: Scheduling | FormData): Observable<ApiResponse<Scheduling>> {
+  public update(id: string, request: Scheduling | FormData): Observable<ApiResponse<Scheduling>> {
       return this._http.post<ApiResponse<Scheduling>>(`${environment.api}/${this.sessionEndpoint}/${id}?_method=PATCH`, request);
   }
 

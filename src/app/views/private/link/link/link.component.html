@@ -1,0 +1,27 @@
+<div class="filters mb-3">
+    <div class="row col-12 justify-content-end">        
+        <!-- <div class="col-md-4">
+            <label for="description">name</label>
+            <input id="description" type="text" class="form-control" placeholder="Nome do link">
+        </div>
+
+        <div class="col-md-2 pt-4">            
+            <input value="Filtrar" id="" type="submit" class="btn btn-green" style="width: 100%;">
+        </div> -->
+        <div class="col-md-2 pt-4">            
+            <button (click)="openLink()" class="btn btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-plus"></i>
+                Novo
+            </button>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<app-table-link
+(onLinkClick)="openLink($event)"
+(onLinkView)="openLink($event, true)"
+[loading]="loading"
+(onDeleteLinkClick)="delete($event)">
+</app-table-link>

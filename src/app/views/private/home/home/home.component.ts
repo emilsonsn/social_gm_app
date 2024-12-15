@@ -9,6 +9,7 @@ import { connect, finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogInstanceComponent } from '@shared/dialogs/dialog-instance/dialog-instance.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,8 @@ export class HomeComponent {
   constructor(
     private readonly _instanceService: InstanceService,
     private readonly _router: Router,
-    private readonly _dialog: MatDialog
+    private readonly _dialog: MatDialog,
+    private readonly _toastrService: ToastrService,
   ) {
   }
 
@@ -84,7 +86,6 @@ export class HomeComponent {
     .pipe(finalize(() => this.loading = false))
     .subscribe({
       next: (res) => {
-        console.log(res);
       },
       error: (error) => {        
       }
@@ -104,13 +105,26 @@ export class HomeComponent {
     }
   }
 
+  onDelete(id, event?: Event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this._instanceService.delete(id)
+    .subscribe({
+      next: (res) => {
+        this._toastrService.success(res.message);
+      },
+      error: (error) => {
+        this._toastrService.error(error.error.message);
+      }
+    })
+  }
+
   connectInstance(instanceName){
     this.loading = true;
     this._instanceService.connect(instanceName)
     .pipe(finalize(() => this.loading = false))
     .subscribe({
       next: (res) => {
-        console.log(res);
         this.createNewInstance(res.data);
       },
       error: (error) => {
