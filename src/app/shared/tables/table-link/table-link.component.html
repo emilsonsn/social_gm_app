@@ -74,7 +74,7 @@
         </tbody>
       </table>
     </div>
-    <!-- <mat-paginator
+    <mat-paginator
       [length]="pageControl.itemCount"
       [pageSize]="pageControl.take"
       [showFirstLastButtons]="true"
@@ -82,10 +82,9 @@
       [hidePageSize]="false"
       [pageIndex]="pageControl.page - 1"
       aria-label="Select page"
+      (page)="pageEvent($event)"
     >
-    </mat-paginator> -->
-    <mat-paginator [length]="pageControl.itemCount" [pageIndex]="pageControl.page" [pageSizeOptions]="[10, 25, 50, 100]"
-                 [pageSize]="pageControl.take" (page)="pageEvent($event)"></mat-paginator>
+    </mat-paginator>
   
   </div>
   
