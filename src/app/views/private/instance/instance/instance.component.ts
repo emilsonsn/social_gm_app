@@ -138,7 +138,7 @@ export class InstanceComponent {
           this._toastrService.success(res.message)
         },
         error: (error) => {
-          this._toastrService.success(error.error.message)
+          this._toastrService.error(error.error.message)
         }      
       })
     }
@@ -152,7 +152,7 @@ export class InstanceComponent {
           this._toastrService.success(res.message)
         },
         error: (error) => {
-          this._toastrService.success(error.error.message)
+          this._toastrService.error(error.error.message)
         }      
       })
     }
@@ -166,7 +166,7 @@ export class InstanceComponent {
           this._toastrService.success(res.message)
         },
         error: (error) => {
-          this._toastrService.success(error.error.message)
+          this._toastrService.error(error.error.message)
         }      
       })
     }
