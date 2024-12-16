@@ -36,7 +36,7 @@
         <div class="col col-md-12 mb-3">
           <span class="fw-bolder">Grupo</span>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select   formControlName="group_id" placeholder="Selecione um grupo">
+            <mat-select  multiple formControlName="group_id" placeholder="Selecione um grupo">
               <mat-option *ngFor="let group of groups"
               (click)="setGroupName(group.subject)"
               [value]="group.id">{{ group.subject }}</mat-option>

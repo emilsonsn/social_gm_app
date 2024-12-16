@@ -89,6 +89,7 @@ export class DialogScheduleComponent {
           audio_path: null,
           image_path: null,
           video_path: null,
+          group_id: this._data.schedule.group_id.split(','),
         });
       },
       error: (err) => {
@@ -136,9 +137,19 @@ export class DialogScheduleComponent {
     this.dialogRef.close(formData);
   }
 
-  setGroupName(groupName){
-    this.form.get('group_name').patchValue(groupName);
+  setGroupName(groupName: string): void {
+    groupName = groupName.trim();
+    let grupos = this.form.get('group_name').value.split(',').map((g: string) => g.trim());
+    if (grupos.includes(groupName)) {
+      const novosGrupos = grupos.filter((g: string) => g !== groupName);
+      this.form.get('group_name').patchValue(novosGrupos.join(','));
+    } else {
+      grupos.push(groupName);
+      grupos = grupos.filter((g: string) => !!groupName);
+      this.form.get('group_name').patchValue(grupos.join(','));
+    }
   }
+  
 
   onFileChange(event: Event, controlName: string): void {
     const input = event.target as HTMLInputElement;
