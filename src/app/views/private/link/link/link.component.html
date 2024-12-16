@@ -19,9 +19,11 @@
 
 <hr>
 
-<app-table-link
-(onLinkClick)="openLink($event)"
-(onLinkView)="openLink($event, true)"
-[loading]="loading"
-(onDeleteLinkClick)="delete($event)">
-</app-table-link>
+<div id="componentTable" class="col-12 mt-4">
+    <app-table-link
+    (onLinkClick)="openLink($event)"
+    (onLinkView)="openLink($event, true)"
+    [loading]="loading"
+    (onDeleteLinkClick)="delete($event)">
+    </app-table-link>
+</div>

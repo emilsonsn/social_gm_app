@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatPaginatorIntl} from "@angular/material/paginator";
+import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {PaginatorPtBR} from "./config/paginator";
 import {ComponentsModule} from "./components/components.module";
 import {DirectivesModule} from "./directives/directives.module";
@@ -19,7 +19,9 @@ import { DialogsModule } from './dialogs/dialogs.module';
     LayoutsModule,
     PipesModule,
     TablesModule,
-    DialogsModule
+    DialogsModule,
+    MatPaginatorModule
+
   ],
   exports: [
     ComponentsModule,

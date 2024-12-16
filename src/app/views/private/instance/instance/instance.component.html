@@ -56,16 +56,18 @@
     </h3>
 </div>
 
-<app-table-scheduling
-(onSchedulingClick)="openSchedule($event)"
-(onSchedulingImport)="importSchedule($event)"
-(onSchedulingView)="openSchedule($event, true)"
-(onDeleteSchedulingClick)="delete($event)"
-(onSchedulingCopy)="copySchedule($event)"
-[instance_id]="instance_id"
-[loading]="loading"
-[filters]="filters"
-[isAdmin]="isAdmin"
-[isLibrary]="library"
->
-</app-table-scheduling>
+<div id="componentTable" class="col-12 mt-4">
+    <app-table-scheduling
+    (onSchedulingClick)="openSchedule($event)"
+    (onSchedulingImport)="importSchedule($event)"
+    (onSchedulingView)="openSchedule($event, true)"
+    (onDeleteSchedulingClick)="delete($event)"
+    (onSchedulingCopy)="copySchedule($event)"
+    [instance_id]="instance_id"
+    [loading]="loading"
+    [filters]="filters"
+    [isAdmin]="isAdmin"
+    [isLibrary]="library"
+    >
+    </app-table-scheduling>
+</div>

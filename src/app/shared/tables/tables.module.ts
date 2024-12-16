@@ -13,6 +13,7 @@ import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { TableSchedulingComponent } from './table-scheduling/table-scheduling.component';
 import { TableLinkComponent } from './table-link/table-link.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const tables = [
   TableUserComponent,
@@ -35,6 +36,7 @@ const tables = [
     MatRippleModule,
     PipesModule,
     AvatarModule,
+    MatTooltipModule
   ],
   exports: [
     tables
