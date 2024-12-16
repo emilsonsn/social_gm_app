@@ -139,7 +139,8 @@ export class DialogScheduleComponent {
 
   setGroupName(groupName: string): void {
     groupName = groupName.trim();
-    let grupos = this.form.get('group_name').value.split(',').map((g: string) => g.trim());
+    const group_name_value = this.form.get('group_name').value
+    let grupos =  group_name_value ? group_name_value.split(',').map((g: string) => g.trim()) : [];
     if (grupos.includes(groupName)) {
       const novosGrupos = grupos.filter((g: string) => g !== groupName);
       this.form.get('group_name').patchValue(novosGrupos.join(','));
