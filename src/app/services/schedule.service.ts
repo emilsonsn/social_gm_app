@@ -32,6 +32,10 @@ export class ScheduleService {
       return this._http.post<ApiResponse<Scheduling>>(`${environment.api}/${this.sessionEndpoint}/create`, request);
   }
 
+  public copy(id: number): Observable<ApiResponse<Scheduling>> {
+    return this._http.post<ApiResponse<Scheduling>>(`${environment.api}/${this.sessionEndpoint}/copy/${id}`, {});
+  }    
+
   public delete(id: number): Observable<DeleteApiResponse> {
       return this._http.delete<DeleteApiResponse>(`${environment.api}/${this.sessionEndpoint}/${id}`);
   }

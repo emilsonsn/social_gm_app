@@ -123,10 +123,17 @@ export class InstanceComponent {
     }
 
     copySchedule(schedule){
-      this.create({
-        ...schedule,
-        status: 'Waiting'
-      });
+      this.loading = true;
+      this._scheduleService.copy(schedule.id)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (res) =>{
+          this._toastrService.success(res.message)
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message)
+        }
+      })
     }
 
     create(data: FormData){
