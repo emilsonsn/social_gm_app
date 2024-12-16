@@ -27,6 +27,7 @@ import { DialogInstanceComponent } from './dialog-instance/dialog-instance.compo
 import { DialogScheduleComponent } from './dialog-schedule/dialog-schedule.component';
 import { DialogLinkComponent } from './dialog-link/dialog-link.component';
 import { DialogAutomationComponent } from './dialog-automation/dialog-automation.component';
+import { DialogUserComponent } from './dialog-user/dialog-user.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DialogAutomationComponent } from './dialog-automation/dialog-automation
     DialogScheduleComponent,
     DialogLinkComponent,
     DialogAutomationComponent,
+    DialogUserComponent,
   ],
   imports: [
     CommonModule,

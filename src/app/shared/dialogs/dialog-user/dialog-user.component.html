@@ -1,0 +1,101 @@
+<mat-dialog-content>
+  <app-loading [loading]="loading"></app-loading>
+  <div class="d-flex align-items-center justify-content-between">
+    {{ title }}
+    <div class="d-flex align-items-center gap-2">
+      <div matRipple class="close" (click)="onCancel()">
+        <i class="fa-solid fa-close"></i>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="my-3"></mat-divider>
+
+  <form [formGroup]="form" class="mt-3">
+    <div class="row">
+      <!-- Nome -->
+      <div class="col col-md-6 mb-3">
+        <span class="fw-bolder">Nome</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <input formControlName="name" matInput placeholder="Digite o nome" />
+        </mat-form-field>
+      </div>
+
+      <!-- Email -->
+      <div class="col col-md-6 mb-3">
+        <span class="fw-bolder">Email</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <input formControlName="email" matInput type="email" placeholder="Digite o email" />
+        </mat-form-field>
+      </div>
+
+      <!-- CPF/CNPJ -->
+      <div class="col col-md-6 mb-3">
+        <span class="fw-bolder">CPF/CNPJ</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <input
+            formControlName="cpf_cnpj"
+            matInput
+            placeholder="Digite o CPF ou CNPJ"
+            [mask]="'000.000.000-00'"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col col-md-6 mb-3">
+        <span class="fw-bolder">Telefone</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <input
+            formControlName="phone"
+            matInput
+            placeholder="Digite o telefone"
+            mask="(00) 00000-0000"
+          />
+        </mat-form-field>
+      </div>
+    
+      <!-- Data de Nascimento -->
+      <div class="col col-md-6 mb-3">
+        <span class="fw-bolder">Data de Nascimento</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <input formControlName="birth_date" matInput [matDatepicker]="picker" placeholder="Selecione a data" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <!-- Ativo/Inativo -->
+      <div class="col col-md-6 mb-3">
+        <span class="fw-bolder">Status</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select formControlName="is_active" placeholder="Selecione o status">
+            <mat-option [value]="1">Ativo</mat-option>
+            <mat-option [value]="0">Inativo</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions *ngIf="!_data.view">
+  <div class="w-100 me-2">
+    <div id="actionsDialog" class="flex-sm-row flex-column">
+      <div id="buttonsDialog" class="flex-sm-row flex-column">
+        <div class="col-auto">
+          <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
+        </div>
+        <div class="col-auto">
+          <button
+            matRipple
+            id="submit"
+            class="button primary"
+            (click)="!loading ? onConfirm() : null"
+          >
+            Salvar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

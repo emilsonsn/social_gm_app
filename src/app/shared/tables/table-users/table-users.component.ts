@@ -24,6 +24,9 @@ export class TableUserComponent {
   onUserClick: EventEmitter<User> = new EventEmitter<User>();
 
   @Output()
+  onUserView: EventEmitter<User> = new EventEmitter<User>();
+
+  @Output()
   onDeleteUserClick: EventEmitter<number> = new EventEmitter<number>();
 
   public users: User[] = [];
@@ -51,18 +54,6 @@ export class TableUserComponent {
       slug: "position",
       order: true,
       title: "Cargo",
-      align: "justify-content-center",
-    },
-    {
-      slug: "sector",
-      order: true,
-      title: "Setor",
-      align: "justify-content-center",
-    },
-    {
-      slug: "cellphone",
-      order: true,
-      title: "Whatsapp",
       align: "justify-content-center",
     },
     {

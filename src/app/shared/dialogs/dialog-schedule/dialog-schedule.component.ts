@@ -99,7 +99,9 @@ export class DialogScheduleComponent {
   }
 
   getLinks(){
-    this._linkService.getLinks()
+    this._linkService.getLinks({}, {
+      instance_id : this.form.get('instance_id').value
+    })
     .subscribe({
       next: (res) => {
         this.links = res.data;       

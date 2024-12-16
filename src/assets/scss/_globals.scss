@@ -11,6 +11,16 @@ body {
   scroll-behavior: smooth;
 }
 
+.btn-green{
+  background: #05f5b9;
+  font-weight: 600;
+}
+
+.btn-green:hover{
+  background: #01d39f;
+  font-weight: 600;
+}
+
 .table-container{
   height: 100%;
   width: 100%;

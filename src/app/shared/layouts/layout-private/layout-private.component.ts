@@ -1,4 +1,4 @@
-import {Component, ElementRef, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {IMenuItem} from "@models/ItemsMenu";
 import {SidebarService} from '@services/sidebar.service';
 import {Subscription} from "rxjs";
@@ -13,7 +13,7 @@ import { SessionQuery } from '@store/session.query';
   templateUrl: './layout-private.component.html',
   styleUrl: './layout-private.component.scss'
 })
-export class LayoutPrivateComponent {
+export class LayoutPrivateComponent implements OnInit {
 
   public permitedMenuItem: IMenuItem[] = [];
 
@@ -34,7 +34,7 @@ export class LayoutPrivateComponent {
       label: 'Usuários',
       icon: 'fa-solid fa-users',
       route: '/painel/collaborator'
-    },
+    }
   ]
 
   protected isMobile: boolean = window.innerWidth >= 1000;
@@ -52,20 +52,22 @@ export class LayoutPrivateComponent {
 
 
   ngOnInit(): void {
-
     document.getElementById('template').addEventListener('click', () => {
       this._sidebarService.retractSidebar();
     });
-
+  
     this._sessionQuery.user$.subscribe(user => {
-      if(user) {
+      if (user) {
         this.user = user;
+  
+        if (user.role !== 'Admin') {
+          this.menuItem = this.menuItem.filter(item => item.label !== 'Usuários');
+        }
+  
         this.permitedMenuItem = this.menuItem;
       }
-    })
-
+    });
   }
-
 
   ngOnDestroy(): void {
     if (this.resizeSubscription) {

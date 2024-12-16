@@ -35,10 +35,12 @@ export class LinkComponent {
           })
           .afterClosed()
           .subscribe((res) => {
-            if (res.id) {
-              this.update(res);
-            }else{
-              this.create(res);
+            if(res){
+              if (res.id) {
+                this.update(res);
+              }else{
+                this.create(res);
+              }
             }
           });
       }

@@ -43,7 +43,7 @@ export class UserService {
 
   // return this._http.post<ApiResponse<User>>(`${environment.api}/open/user/${token}`, user);
 
-  public patchUser(id: number, user: FormData): Observable<ApiResponse<User>> {
+  public patchUser(id: number, user: any): Observable<ApiResponse<User>> {
     return this._http.post<ApiResponse<User>>(`${environment.api}/${this.sessionEndpoint}/${id}?_method=PATCH`, user);
   }
 

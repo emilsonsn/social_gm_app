@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {finalize} from 'rxjs';
 import {User} from '@models/user';
 import {UserService} from '@services/user.service';
+import { DialogUserComponent } from '@shared/dialogs/dialog-user/dialog-user.component';
 
 @Component({
   selector: 'app-collaborator',
@@ -30,13 +31,31 @@ export class CollaboratorComponent {
     this.loading = !this.loading;
   }
 
-  openDialogCollaborator(user?: User) {
-    
-  }
+  openDialogCollaborator(user?, view: boolean = false): void {
+        const dialogConfig: MatDialogConfig = {
+          width: '90%',
+          maxWidth: '800px',
+          hasBackdrop: true,
+          closeOnNavigation: false,
+        };
+        
+        this._dialog
+          .open(DialogUserComponent, {
+            data: {user, view},
+            ...dialogConfig,
+          })
+          .afterClosed()
+          .subscribe((res: User) => {
+            this._initOrStopLoading();
+            setTimeout( () => {
+              this._initOrStopLoading();
+            }, 500)
+          });
+    }
 
-  _patchCollaborator(collaborator: FormData) {
+  _patchCollaborator(collaborator: User) {
     this._initOrStopLoading();
-    const id = +collaborator.get('id');
+    const id = +collaborator.id;
     this._userService
       .patchUser(id, collaborator)
       .pipe(finalize(() => this._initOrStopLoading()))

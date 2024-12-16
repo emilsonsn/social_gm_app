@@ -74,17 +74,12 @@
               </td>
               <td>
                 <div class="text-center">
-                  {{ collaborator?.whatsapp | phoneMask }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
                   {{ collaborator?.email }}
                 </div>
               </td>
               <td>
                 <div class="d-flex justify-content-end">
-                  <div matRipple class="buttonTemplate" (click)="onUserClick.emit(collaborator)">
+                  <div matRipple class="buttonTemplate" (click)="onUserView.emit(collaborator)">
                     <i class="fa-solid fa-eye"></i>
                   </div>
 

@@ -1,14 +1,15 @@
 
-<div class="mt-5 d-flex justify-content-end">
-  <button matRipple class="button yellow" (click)="openDialogCollaborator()">
+<div class="mt-5 d-flex justify-content-end ">
+  <button matRipple class="btn btn-green" (click)="openDialogCollaborator()">
     <i class="fa-solid fa-circle-plus"></i> Novo Colaborador
   </button>
 </div>
 
 <div id="componentTable" class="col-12 mt-4">
-  <!-- <app-table-users
+  <app-table-users
     [loading]="loading"
     (onUserClick)="openDialogCollaborator($event)"
+    (onUserView)="openDialogCollaborator($event, true)"
     (onDeleteUserClick)="onDeleteCollaborator($event)">
-  </app-table-users> -->
+  </app-table-users>
 </div>
