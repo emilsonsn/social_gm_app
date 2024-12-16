@@ -125,7 +125,7 @@
         src="assets/images/audio.png"
         >
 
-        @if(_data?.schedule?.video_path){
+        @if(_data?.schedule?.video_path && form.get('midia').value === 'video'){
           <video autoplay src="{{ _data?.schedule?.video_path }}"></video>
         }
         @else {
