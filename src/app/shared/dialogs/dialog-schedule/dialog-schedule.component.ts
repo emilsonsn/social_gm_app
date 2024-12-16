@@ -98,9 +98,7 @@ export class DialogScheduleComponent {
   }
 
   getLinks(){
-    this.loading = true;
     this._linkService.getLinks()
-    .pipe(finalize(() => this.loading = false))
     .subscribe({
       next: (res) => {
         this.links = res.data;       

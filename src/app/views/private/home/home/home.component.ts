@@ -81,17 +81,18 @@ export class HomeComponent {
   }
 
   create(instance){
-    this.loading = false;
+    this.loading = true;
     this._instanceService.create(instance)
     .pipe(finalize(() => this.loading = false))
     .subscribe({
       next: (res) => {
+        this._toastrService.success(res.message);
       },
       error: (error) => {        
+        this._toastrService.error(error.error.message);
       }
     })
   }
-
 
   ngOnInit() {
     this.getInstances();
@@ -108,7 +109,9 @@ export class HomeComponent {
   onDelete(id, event?: Event) {
     event.stopPropagation();
     event.preventDefault();
+    this.loading = true;
     this._instanceService.delete(id)
+    .pipe(finalize(() => this.loading = false))
     .subscribe({
       next: (res) => {
         this._toastrService.success(res.message);
