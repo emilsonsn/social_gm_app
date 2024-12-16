@@ -1,4 +1,5 @@
 <mat-dialog-content >
+    <app-loading [loading]="loading"></app-loading>
     <div class="d-flex align-items-center justify-content-between">
         {{ title }}
         <div class="d-flex align-items-center gap-2">
@@ -36,12 +37,6 @@
   <mat-dialog-actions *ngIf="!_data" >
     <div class="w-100 me-2">
       <div id="actionsDialog" class="flex-sm-row flex-column">
-        @if(loading) {
-        <div matRipple class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
-          <mat-spinner></mat-spinner>
-        </div>
-        }
-  
         <div id="buttonsDialog" class="flex-sm-row flex-column">
           <div class="col-auto">
             <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>

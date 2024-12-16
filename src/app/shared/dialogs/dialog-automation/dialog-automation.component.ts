@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DialogAutomationComponent {
  public form: FormGroup;
   public loading: boolean = false;
-  public title: string = 'Cria Automação';
+  public title: string = 'Configuração de mensagens';
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected readonly _data,
