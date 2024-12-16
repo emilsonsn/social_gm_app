@@ -83,7 +83,7 @@
         <!-- Áudio -->
         <div (change)="onFileChange($event, 'audio_path')" *ngIf="form.get('midia').value === 'audio'" class="col col-md-12 mb-3">
           <span class="fw-bolder">Áudio</span>
-          <input type="file" formControlName="audio_path" accept=".mp3" class="form-control" />
+          <input type="file" formControlName="audio_path" accept=".mp3, .ogg" class="form-control" />
         </div>
   
         <!-- Imagem -->
