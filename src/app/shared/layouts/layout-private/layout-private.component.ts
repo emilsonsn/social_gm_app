@@ -4,9 +4,8 @@ import {SidebarService} from '@services/sidebar.service';
 import {Subscription} from "rxjs";
 import {User} from "@models/user";
 import {UserService} from "@services/user.service";
-import {ApiResponse} from "@models/application";
-import { SessionService } from '@store/session.service';
-import { SessionQuery } from '@store/session.query';
+import {SessionService} from '@store/session.service';
+import {SessionQuery} from '@store/session.query';
 
 @Component({
   selector: 'app-layout-private',
@@ -34,6 +33,11 @@ export class LayoutPrivateComponent implements OnInit {
       label: 'Usuários',
       icon: 'fa-solid fa-users',
       route: '/painel/collaborator'
+    },
+    {
+      label: 'Web Chat',
+      icon: 'fa-brands fa-whatsapp',
+      route: '/painel/web-chat'
     }
   ]
 
@@ -47,23 +51,24 @@ export class LayoutPrivateComponent implements OnInit {
     private readonly _sidebarService: SidebarService,
     private readonly _userService: UserService,
     private readonly _sessionService: SessionService,
-    private readonly _sessionQuery : SessionQuery
-  ) { }
+    private readonly _sessionQuery: SessionQuery
+  ) {
+  }
 
 
   ngOnInit(): void {
     document.getElementById('template').addEventListener('click', () => {
       this._sidebarService.retractSidebar();
     });
-  
+
     this._sessionQuery.user$.subscribe(user => {
       if (user) {
         this.user = user;
-  
+
         if (user.role !== 'Admin') {
           this.menuItem = this.menuItem.filter(item => item.label !== 'Usuários');
         }
-  
+
         this.permitedMenuItem = this.menuItem;
       }
     });

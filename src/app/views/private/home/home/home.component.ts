@@ -1,15 +1,11 @@
-import {Component, computed, Signal, signal} from '@angular/core';
-import {Chart, registerables} from "chart.js";
-import {DashboardService} from "@services/dashboard.service";
-import {ApiResponse} from "@models/application";
+import {Component, signal} from '@angular/core';
 import {OrderData} from "@models/dashboard";
-import {formatCurrency} from "@angular/common";
-import { InstanceService } from '@services/instance.service';
-import { connect, finalize } from 'rxjs';
-import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { DialogInstanceComponent } from '@shared/dialogs/dialog-instance/dialog-instance.component';
-import { ToastrService } from 'ngx-toastr';
+import {InstanceService} from '@services/instance.service';
+import {finalize} from 'rxjs';
+import {Router} from '@angular/router';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {DialogInstanceComponent} from '@shared/dialogs/dialog-instance/dialog-instance.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -41,23 +37,23 @@ export class HomeComponent {
   ) {
   }
 
-  instances :any[] = [];
+  instances: any[] = [];
 
-  getInstances(){
+  getInstances() {
     this.loading = true;
     this._instanceService.search({})
-    .pipe(finalize(() => this.loading = false))
-    .subscribe({
-      next: (res) => {
-        if (res.data) {
-          this.instances = res.data;
-        }
-      },
-      error: (error) => console.error('Error:', error)
-    })
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (res) => {
+          if (res.data) {
+            this.instances = res.data;
+          }
+        },
+        error: (error) => console.error('Error:', error)
+      })
   }
 
-  createNewInstance(qrcode?){
+  createNewInstance(qrcode?) {
     const dialogConfig: MatDialogConfig = {
       width: '80%',
       maxWidth: '400px',
@@ -74,34 +70,34 @@ export class HomeComponent {
       .subscribe((res) => {
         if (res) {
           this.create(res);
-        }else{
+        } else {
           this.getInstances();
         }
       });
   }
 
-  create(instance){
+  create(instance) {
     this.loading = true;
     this._instanceService.create(instance)
-    .pipe(finalize(() => this.loading = false))
-    .subscribe({
-      next: (res) => {
-        this._toastrService.success(res.message);
-      },
-      error: (error) => {        
-        this._toastrService.error(error.error.message);
-      }
-    })
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (res) => {
+          this._toastrService.success(res.message);
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message);
+        }
+      })
   }
 
   ngOnInit() {
     this.getInstances();
   }
 
-  onCardClick(instance){
-    if(instance.connectionStatus === 'open'){
+  onCardClick(instance) {
+    if (instance.connectionStatus === 'open') {
       this._router.navigate(['/painel/instance/' + instance.id]);
-    }else{
+    } else {
       this.connectInstance(instance.name);
     }
   }
@@ -111,29 +107,29 @@ export class HomeComponent {
     event.preventDefault();
     this.loading = true;
     this._instanceService.delete(id)
-    .pipe(finalize(() => this.loading = false))
-    .subscribe({
-      next: (res) => {
-        this._toastrService.success(res.message);
-      },
-      error: (error) => {
-        this._toastrService.error(error.error.message);
-      }
-    })
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (res) => {
+          this._toastrService.success(res.message);
+        },
+        error: (error) => {
+          this._toastrService.error(error.error.message);
+        }
+      })
   }
 
-  connectInstance(instanceName){
+  connectInstance(instanceName) {
     this.loading = true;
     this._instanceService.connect(instanceName)
-    .pipe(finalize(() => this.loading = false))
-    .subscribe({
-      next: (res) => {
-        this.createNewInstance(res.data);
-      },
-      error: (error) => {
-        // this.toa error.error.message
-      }
-    })
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (res) => {
+          this.createNewInstance(res.data);
+        },
+        error: (error) => {
+          // this.toa error.error.message
+        }
+      })
   }
 
 }
