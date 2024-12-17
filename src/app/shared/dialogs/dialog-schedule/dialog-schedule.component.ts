@@ -22,6 +22,7 @@ export class DialogScheduleComponent {
   groups: [{id: string, subject: string}];
   links: Link[];
   role: UserRole|string;
+  public isLibrary: boolean = false;
   
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -39,24 +40,33 @@ export class DialogScheduleComponent {
     if(this._data.schedule){
       this.title = 'Editar Agendamento';
     }
-  
+
     this.form = this._fb.group({
       id: [null],
       description: ['', Validators.required],
       instance_id: [this._data.instance_id, [Validators.required]],
       group_id: [null, [Validators.required]],
       link_id: [null],
-      status: [null],
       group_name: [null, [Validators.required]],
       text: [null, [Validators.required]],
       midia: [null, [Validators.required]],
       mention: [null, [Validators.required]],
+      status: [null],
       video_path: [null],
       image_path: [null],
       audio_path: [null],
       datetime: [null, [Validators.required]],
       user_id: [null],
     });
+
+    if(this._data.library){
+      this.title = 'Modelo';
+      if(!this._data.schedule.id){
+        this.isLibrary = true;
+        this.removeValidators();
+        this.form.get('status').patchValue('Model');
+      }
+    }
 
     this.form.get('midia').valueChanges
     .subscribe(value => {
@@ -66,8 +76,8 @@ export class DialogScheduleComponent {
     });
 
     this.loadPosition();
-    this.getGroups();
-    this.getLinks();
+    if(!this.isLibrary) this.getGroups();
+    if(!this.isLibrary) this.getLinks();
   }
 
   loadPosition(){
@@ -75,6 +85,21 @@ export class DialogScheduleComponent {
     .subscribe(user => {
       this.role = user.role;
     });
+  }
+
+  removeValidators(){
+    const controlsName = [
+      'group_name',
+      'group_id',
+      'datetime',
+      'mention',
+      'group_id'
+    ];
+
+    controlsName.forEach(( controlName ) => {
+      this.form.get(controlName).clearValidators();
+      this.form.get(controlName).updateValueAndValidity();
+    });    
   }
 
   getGroups(){
@@ -86,10 +111,8 @@ export class DialogScheduleComponent {
         this.groups = res.data;
         this.form.patchValue({
           ...this._data.schedule,
-          audio_path: null,
-          image_path: null,
-          video_path: null,
-          group_id: this._data.schedule.group_id.split(','),
+          id: this._data.library ? '' : this._data.schedule.id,
+          group_id: this._data.schedule?.group_id?.split(','),
         });
       },
       error: (err) => {
@@ -127,13 +150,7 @@ export class DialogScheduleComponent {
 
     Object.keys(formValues).forEach((key) => {
       const value = formValues[key];
-      if (key === 'video_path' || key === 'audio_path' || key === 'image_path') {
-        if (value instanceof File) {
-          formData.append(key, value);
-        }
-      } else {
         formData.append(key, value ?? '');
-      }
     });
 
     this.dialogRef.close(formData);

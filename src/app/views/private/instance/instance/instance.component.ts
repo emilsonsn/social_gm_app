@@ -24,7 +24,7 @@ export class InstanceComponent {
   public form: FormGroup;
   public filters;
   public isAdmin: boolean;
-  library: boolean = false;
+  library: boolean = true;
 
   constructor(
     private readonly _dialog: MatDialog,
@@ -73,7 +73,7 @@ export class InstanceComponent {
   
       this._dialog
         .open(DialogScheduleComponent, {
-          data: {instance_id: this.instance_id, schedule, view},
+          data: {instance_id: this.instance_id, schedule, view, library: this.library},
           ...dialogConfig,
         })
         .afterClosed()

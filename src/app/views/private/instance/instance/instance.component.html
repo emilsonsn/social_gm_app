@@ -41,6 +41,11 @@
     Agendamentos
 </button>
 
+<button *ngIf="library" (click)="openSchedule($event)" class="ms-3 btn btn-success">
+    <i class="fa-solid fa-plus"></i>
+    Novo
+</button>
+
 <hr>
 
 <div class="mb-4">
@@ -57,7 +62,7 @@
 </div>
 
 <div id="componentTable" class="col-12 mt-4">
-    <app-table-scheduling
+    <app-table-scheduling *ngIf="!library"
     (onSchedulingClick)="openSchedule($event)"
     (onSchedulingImport)="importSchedule($event)"
     (onSchedulingView)="openSchedule($event, true)"
@@ -70,4 +75,12 @@
     [isLibrary]="library"
     >
     </app-table-scheduling>
+
+    <app-library-card *ngIf="library"
+    [instance_id]="instance_id"
+    (onCardClick)="openSchedule($event)"
+    [loading]="loading"
+    >
+
+    </app-library-card>
 </div>

@@ -84,7 +84,6 @@ export class TableLinkComponent implements OnInit {
     else if ( filters?.previousValue && filters?.currentValue !== filters?.previousValue ) {
 			this._onSearch();
 		}
-
   }
 
   private _initOrStopLoading(): void {

@@ -92,8 +92,8 @@ export class TableSchedulingComponent implements OnInit {
     page: 1,
     itemCount: 0,
     pageCount: 0,
-    orderField: "id",
-    order: Order.ASC,
+    orderField: "datetime",
+    order: Order.DESC,
   };
 
   constructor(
