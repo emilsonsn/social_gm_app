@@ -1,0 +1,38 @@
+<div class="cards">
+    <app-loading [loading]="loading"></app-loading>
+    <div class="card" *ngFor="let schedule of schedules">
+        <div class="card-body">
+
+            <div class="midia">
+                <img
+                *ngIf="schedule.midia === 'imagem'"
+                src="{{ schedule?.image_path ?? 'assets/images/imagem.png'}}"
+                >
+        
+                <img
+                *ngIf="schedule.midia === 'audio'"
+                src="assets/images/audio.png"
+                >
+        
+                @if(schedule?.video_path && schedule.midia === 'video'){
+                  <video autoplay src="{{ schedule?.video_path }}"></video>
+                }
+                @else {
+                  <img
+                  *ngIf="schedule.midia === 'video'"
+                  src="assets/images/video.png"
+                  >
+                }
+            </div>
+            <p class="card-text mt-2" [innerHTML]="processText(schedule.text)">
+            </p>
+        </div>
+        <div class="card-footer">
+            <button
+            class="btn btn-green"
+            (click)="onCardClick.emit(schedule)"
+            >Abrir</button>
+        </div>
+    </div>
+
+</div>

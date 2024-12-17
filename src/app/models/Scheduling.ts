@@ -4,6 +4,7 @@ export interface Scheduling {
   instance_id?: string;
   group_id?: string;
   group_name?: string;
+  midia: string;
   text?: string;
   video_path?: string;
   image_path?: string;
