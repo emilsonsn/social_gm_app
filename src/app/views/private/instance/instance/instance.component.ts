@@ -24,7 +24,7 @@ export class InstanceComponent {
   public form: FormGroup;
   public filters;
   public isAdmin: boolean;
-  library: boolean = false;
+  library: boolean = true;
 
   constructor(
     private readonly _dialog: MatDialog,

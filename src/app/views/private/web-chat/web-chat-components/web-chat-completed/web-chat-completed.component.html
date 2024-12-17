@@ -1,0 +1,5 @@
+<div class="web-chat-item">
+  @for (item of data; track item) {
+    <app-web-chat-item (eventStatus)="updateStatus($event)"  [data]="item"></app-web-chat-item>
+  }
+</div>

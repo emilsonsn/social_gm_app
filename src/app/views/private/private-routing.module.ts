@@ -1,9 +1,8 @@
-import { CollaboratorModule } from './collaborator/collaborator.module';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LayoutPrivateComponent } from "@shared/layouts/layout-private/layout-private.component";
-import { SessionService } from '../../store/session.service';
-import { permissionGuard } from '@app/guards/permission.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LayoutPrivateComponent} from "@shared/layouts/layout-private/layout-private.component";
+import {SessionService} from '@store/session.service';
+import {permissionGuard} from '@app/guards/permission.guard';
 
 const routes: Routes = [
   {
@@ -28,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'instance',
-        loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule),        
+        loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule),
         data: {
           page: 'instace'
         }
@@ -39,6 +38,14 @@ const routes: Routes = [
         canActivate: [permissionGuard],
         data: {
           page: 'collaborator'
+        }
+      },
+      {
+        path: 'web-chat',
+        loadChildren: () => import('./web-chat/web-chat.module').then(m => m.WebChatModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'web-chat'
         }
       },
       {
@@ -58,7 +65,8 @@ export class PrivateRoutingModule {
 
   constructor(
     private readonly _sessionService: SessionService
-  ) {}
+  ) {
+  }
 
 }
 
