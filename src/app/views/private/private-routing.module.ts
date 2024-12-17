@@ -34,6 +34,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'web-chat',
+        loadChildren: () => import('./web-chat/web-chat.module').then(m => m.WebChatModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'collaborator'
+        }
+      },
+      {
         path: 'collaborator',
         loadChildren: () => import('./collaborator/collaborator.module').then(m => m.CollaboratorModule),
         canActivate: [permissionGuard],

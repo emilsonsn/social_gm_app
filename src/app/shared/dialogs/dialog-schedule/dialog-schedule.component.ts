@@ -7,6 +7,7 @@ import { UserRole } from '@models/user';
 import { InstanceService } from '@services/instance.service';
 import { LinkService } from '@services/link.service';
 import { SessionService } from '@store/session.service';
+import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
 
 @Component({
@@ -23,6 +24,7 @@ export class DialogScheduleComponent {
   links: Link[];
   role: UserRole|string;
   public isLibrary: boolean = false;
+  public isImport: boolean = false;
   
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -41,6 +43,8 @@ export class DialogScheduleComponent {
       this.title = 'Editar Agendamento';
     }
 
+    const today = dayjs().format('YYYY-MM-DDTHH:mm');
+
     this.form = this._fb.group({
       id: [null],
       description: ['', Validators.required],
@@ -50,17 +54,20 @@ export class DialogScheduleComponent {
       group_name: [null, [Validators.required]],
       text: [null, [Validators.required]],
       midia: [null, [Validators.required]],
-      mention: [null, [Validators.required]],
+      mention: [0, [Validators.required]],
       status: [null],
       video_path: [null],
       image_path: [null],
       audio_path: [null],
-      datetime: [null, [Validators.required]],
+      datetime: [today, [Validators.required]],
       user_id: [null],
     });
 
+    this.isImport = !!this._data.library && !!this._data.schedule.id;
+
     if(this._data.library){
       this.title = 'Modelo';
+      this.form.get('status').patchValue('Waiting');
       if(!this._data.schedule.id){
         this.isLibrary = true;
         this.removeValidators();
@@ -113,6 +120,7 @@ export class DialogScheduleComponent {
           ...this._data.schedule,
           id: this._data.library ? '' : this._data.schedule.id,
           group_id: this._data.schedule?.group_id?.split(','),
+          status: this.isImport ? 'Waiting' : this._data.schedule.status
         });
       },
       error: (err) => {

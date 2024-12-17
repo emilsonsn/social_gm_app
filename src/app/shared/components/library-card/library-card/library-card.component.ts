@@ -23,6 +23,9 @@ export class LibraryCardComponent implements OnInit {
   @Output()
   onCardClick: EventEmitter<Scheduling> = new EventEmitter();
 
+  @Output()
+  onDeleteClick: EventEmitter<number> = new EventEmitter();
+  
     public pageControl: PageControl = {
       take: 10,
       page: 1,
@@ -70,6 +73,12 @@ export class LibraryCardComponent implements OnInit {
       .replace(/\*(.*?)\*/g, '<b>$1</b>') // Negrito
       .replace(/~(.*?)~/g, '<s>$1</s>')   // Cortado
       .replace(/_(.*?)_/g, '<i>$1</i>');  // Itálico
+  }
+
+  delete(id, event: Event){
+    event.preventDefault();
+    event.stopPropagation();
+    this.onDeleteClick.emit(id)
   }
   
 }

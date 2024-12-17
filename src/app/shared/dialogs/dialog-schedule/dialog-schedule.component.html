@@ -45,7 +45,7 @@
         <div class="col col-md-12 mb-3" *ngIf="!isLibrary">
           <span class="fw-bolder">Link</span>
           <mat-form-field appearance="outline" class="w-100">
-            <mat-select   formControlName="link_id" placeholder="Selecione um grupo">
+            <mat-select   formControlName="link_id" placeholder="Selecione um link">
               <mat-option *ngFor="let link of links"              
               [value]="link.id">{{ link.name }}</mat-option>
             </mat-select>
@@ -141,9 +141,9 @@
           <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
         </div>
         <div class="col-auto">
-          <button matRipple id="submit" class="button primary" (click)="!loading ? onConfirm() : null">{{
-            "Salvar"
-            }}</button>
+          <button matRipple id="submit" class="button primary" (click)="!loading ? onConfirm() : null">
+            {{ isImport ?  'Importar' : 'Salvar' }}
+          </button>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
     styleUrls: ['./avatar.component.scss']
 })
 export class AvatarComponent implements OnChanges {
+    @Input() qtdBadge: number; // Adicione esta linha se não existir
     @Input() imageUrl: string;
     @Input() altText: string;
     @Input() color: string = '#e7b403';

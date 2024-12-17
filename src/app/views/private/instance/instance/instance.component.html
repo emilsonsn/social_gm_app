@@ -79,6 +79,7 @@
     <app-library-card *ngIf="library"
     [instance_id]="instance_id"
     (onCardClick)="openSchedule($event)"
+    (onDeleteClick)="delete($event)"
     [loading]="loading"
     >
 

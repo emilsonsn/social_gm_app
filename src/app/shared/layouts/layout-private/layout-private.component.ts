@@ -31,6 +31,11 @@ export class LayoutPrivateComponent implements OnInit {
       active: true
     },
     {
+      label: 'Webchat',
+      icon: 'fa-brands fa-whatsapp',
+      route: '/painel/web-chat'
+    },
+    {
       label: 'Usuários',
       icon: 'fa-solid fa-users',
       route: '/painel/collaborator'
