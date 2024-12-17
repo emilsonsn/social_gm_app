@@ -8,11 +8,12 @@ import {
 import {MatDivider} from "@angular/material/divider";
 import {CdkDrag, CdkDragPlaceholder, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import { LoadingComponent } from './loading/loading.component';
+import { LibraryCardModule } from './library-card/library-card.module';
 
 const components: any[] = [
   AccountManagerComponent,
   SmallInformationCardComponent,
-  LoadingComponent
+  LoadingComponent,
 ]
 
 @NgModule({

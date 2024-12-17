@@ -8,10 +8,11 @@
               [class.hasorder]="col.order"
               [ngStyle]="{ cursor: 'pointer' }"
               [class.active-order]="pageControl.orderField === col.slug"
+              class="text-center"
             >
               <!--(click)="onClickOrderBy(col.slug, col.order)" -->
               <div
-                class="{{col.align}}"
+                class="text-end"
                 style="color: #a2a1a8"
               >
                 {{ col.title }}

@@ -21,19 +21,9 @@
             <input type="text" formControlName="description" matInput placeholder="Descrição do agendamento" />
           </mat-form-field>
         </div>
-
-        <div class="col col-md-12 mb-3" *ngIf="role == 'Admin'">
-          <span class="fw-bolder">Tipo</span>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select formControlName="status" placeholder="Tipo de cadastro">
-              <mat-option [value]="'Model'">Biblioteca</mat-option>
-              <mat-option [value]="'Waiting'">Disparo</mat-option>              
-            </mat-select>
-          </mat-form-field>
-        </div>
   
         <!-- Grupo -->
-        <div class="col col-md-12 mb-3">
+        <div class="col col-md-12 mb-3" *ngIf="!isLibrary">
           <span class="fw-bolder">Grupo</span>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select  multiple formControlName="group_id" placeholder="Selecione um grupo">
@@ -52,7 +42,7 @@
           </mat-form-field>
         </div>
 
-        <div class="col col-md-12 mb-3">
+        <div class="col col-md-12 mb-3" *ngIf="!isLibrary">
           <span class="fw-bolder">Link</span>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select   formControlName="link_id" placeholder="Selecione um grupo">
@@ -93,7 +83,7 @@
         </div>
   
         <!-- Data e Hora -->
-        <div class="col col-md-12 mb-3">
+        <div class="col col-md-12 mb-3" *ngIf="!isLibrary">
           <span class="fw-bolder">Data e Hora</span>
           <mat-form-field appearance="outline" class="w-100">
             <input type="datetime-local" formControlName="datetime" matInput />
@@ -101,7 +91,7 @@
         </div>
   
         <!-- Menção -->
-        <div class="col col-md-12 mb-3">
+        <div class="col col-md-12 mb-3" *ngIf="!isLibrary">
           <span class="fw-bolder">Menção</span>
           <mat-form-field appearance="outline" class="w-100">
             <mat-select formControlName="mention" placeholder="Deve colocar menção?">
