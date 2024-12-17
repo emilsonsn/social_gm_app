@@ -1,0 +1,39 @@
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+
+    .card{
+
+        .header{
+            background: white;
+            color: black;
+            border-radius: 4px;
+        }
+
+        width: 100%;
+        max-width: 300px;
+        font-size: 0.9rem;
+        background: #005c4b;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        line-height: 18px;
+        .midia{
+            width: 100%;
+            video,img{
+                width: 95%;
+                margin: 0 auto;
+            }
+        }
+
+        .btn-green{
+            background: #05f5b9;
+            font-weight: 600;
+            width: 100%;
+        }
+    }
+}
+
