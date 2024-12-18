@@ -4,7 +4,6 @@
     overflow-y: auto;
 
     .card{
-        position: relative;
         cursor: pointer;
         .header{
             background: white;
@@ -34,15 +33,6 @@
             background: #05f5b9;
             font-weight: 600;
             width: 100%;
-        }
-
-        .delete{
-            background: transparent;
-            border: none;
-            color: white;
-            position: absolute;
-            top: 5px;
-            right: 10px;
         }
     }
 }

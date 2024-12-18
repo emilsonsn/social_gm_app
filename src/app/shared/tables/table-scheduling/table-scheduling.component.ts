@@ -51,39 +51,39 @@ export class TableSchedulingComponent implements OnInit {
   public columns = [
     {
       slug: "description",
-      order: true,
+      order: false,
       title: "Descrição",
-      align: "text-center",
+      align: "justify-content-center",
     },
     {
       slug: "group_id",
-      order: true,
+      order: false,
       title: "Grupo",
-      align: "text-center",
+      align: "justify-content-center",
     },
     {
       slug: "datetime",
-      order: true,
+      order: false,
       title: "Data e hora de envio",
-      align: "text-center",
+      align: "justify-content-center",
     },
     {
-      slug: "",
-      order: true,
+      slug: "day",
+      order: false,
       title: "Dia",
-      align: "text-center",
+      align: "justify-content-center",
     },
     {
       slug: "status",
-      order: true,
+      order: false,
       title: "Status",
-      align: "text-center",
+      align: "justify-content-center",
     },
     {
       slug: "",
-      order: true,
+      order: false,
       title: "Ações",
-      align: "text-end",
+      align: "justify-content-end",
     },
   ];
 

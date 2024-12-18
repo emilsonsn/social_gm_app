@@ -1,12 +1,6 @@
 <div class="cards">
     <app-loading [loading]="loading"></app-loading>
-    <div class="card" (click)="onCardClick.emit(schedule)" *ngFor="let schedule of schedules">
-        <button
-        class="delete"
-        (click)="delete(schedule.id, $event)"
-        >
-        <i class="fa-solid fa-trash"></i>
-        </button>
+    <div class="card" *ngFor="let schedule of schedules">        
         <div class="card-body">
 
             <div class="midia">
@@ -32,6 +26,31 @@
             </div>
             <p class="card-text mt-2" [innerHTML]="processText(schedule.text)">
             </p>
+        </div>
+        <div class="card-footer d-flex justify-content-around">
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="onCardClick.emit(schedule)"
+            >
+            Importar
+            <i class="fa-solid fa-download"></i>
+          </button>
+          <button
+            class="btn btn-secondary btn-sm"
+            (click)="editLibrary(schedule)"
+            *ngIf="isAdmin"
+            >
+            Editar
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="delete(schedule.id, $event)"
+            *ngIf="isAdmin"
+            >
+            Deletar
+            <i class="fa-solid fa-trash"></i>
+          </button>
         </div>
     </div>
 

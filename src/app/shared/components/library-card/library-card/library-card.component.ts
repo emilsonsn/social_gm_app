@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Order, PageControl } from '@models/application';
 import { Scheduling } from '@models/Scheduling';
+import { UserRole } from '@models/user';
 import { ScheduleService } from '@services/schedule.service';
+import { SessionService } from '@store/session.service';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
@@ -13,6 +15,8 @@ import { finalize } from 'rxjs';
 export class LibraryCardComponent implements OnInit {
 
   schedules: Scheduling[] = [];
+
+  isAdmin: boolean = false;
 
   @Input()
   loading: boolean = false;
@@ -38,10 +42,12 @@ export class LibraryCardComponent implements OnInit {
   constructor(
     private readonly _scheduleService: ScheduleService,
     private readonly _toastrService: ToastrService,
+    private readonly _sessionService: SessionService
   ){}
 
   ngOnInit(): void {
     this.getSchedule();
+    this.loadPermissions();
   }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -51,6 +57,13 @@ export class LibraryCardComponent implements OnInit {
         this.getSchedule();
       }
     }
+
+  loadPermissions(){
+    this._sessionService.getUser()
+    .subscribe(user => {
+        if(user.role === UserRole.Admin) this.isAdmin = true;
+    });
+  }
 
   getSchedule(){
     this.loading = true;
@@ -79,6 +92,13 @@ export class LibraryCardComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     this.onDeleteClick.emit(id)
+  }
+
+  editLibrary(schedule){
+    this.onCardClick.emit({
+      ...schedule,
+      edit: true
+    })
   }
   
 }

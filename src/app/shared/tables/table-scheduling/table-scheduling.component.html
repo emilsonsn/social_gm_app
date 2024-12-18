@@ -14,11 +14,6 @@
                 style="color: #a2a1a8"
               >
                 {{ col.title }}
-                <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
-                  {{
-                    pageControl.order === "DESC" ? "arrow_downward" : "arrow_upward"
-                  }}
-                </i>
               </div>
             </th>
           }

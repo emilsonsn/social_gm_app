@@ -62,13 +62,13 @@ export class DialogScheduleComponent {
       datetime: [today, [Validators.required]],
       user_id: [null],
     });
-
-    this.isImport = !!this._data.library && !!this._data.schedule.id;
+    
+    this.isImport = !!this._data.library && !!this._data.schedule.id && !this._data?.schedule?.edit;
 
     if(this._data.library){
       this.title = 'Modelo';
       this.form.get('status').patchValue('Waiting');
-      if(!this._data.schedule.id){
+      if(!this._data.schedule.id || this._data?.schedule?.edit){
         this.isLibrary = true;
         this.removeValidators();
         this.form.get('status').patchValue('Model');
@@ -85,6 +85,7 @@ export class DialogScheduleComponent {
     this.loadPosition();
     if(!this.isLibrary) this.getGroups();
     if(!this.isLibrary) this.getLinks();
+    if(this._data?.schedule?.edit) this.fillForm(this._data?.schedule);
   }
 
   loadPosition(){
@@ -116,12 +117,12 @@ export class DialogScheduleComponent {
     .subscribe({
       next: (res) => {
         this.groups = res.data;
-        this.form.patchValue({
+        this.fillForm({
           ...this._data.schedule,
-          id: this._data.library ? '' : this._data.schedule.id,
+          id: this._data.library && !this._data.schedule?.edit ? '' : this._data.schedule.id,
           group_id: this._data.schedule?.group_id?.split(','),
           status: this.isImport ? 'Waiting' : this._data.schedule.status
-        });
+        })        
       },
       error: (err) => {
         console.error(err);
@@ -141,6 +142,10 @@ export class DialogScheduleComponent {
         console.error(err);
       }
     })
+  }
+
+  fillForm(schedule){
+    this.form.patchValue(schedule);
   }
 
   public onCancel(): void {
