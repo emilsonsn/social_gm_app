@@ -124,11 +124,13 @@ export class InstanceComponent {
 
     copySchedule(schedule){
       this.loading = true;
-      this._scheduleService.copy(schedule.id)
-      .pipe(finalize(() => this.loading = false))
+      this._scheduleService.copy(schedule.id)      
       .subscribe({
         next: (res) =>{
           this._toastrService.success(res.message)
+          setTimeout(() => {
+            this.loading = false;
+          }, 1500);
         },
         error: (error) => {
           this._toastrService.error(error.error.message)
