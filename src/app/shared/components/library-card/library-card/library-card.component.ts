@@ -68,7 +68,7 @@ export class LibraryCardComponent implements OnInit {
   getSchedule(){
     this.loading = true;
     const filters = {instance_id: this.instance_id, status: 'Model'};
-    this._scheduleService.search(this.pageControl, filters)
+    this._scheduleService.all(this.pageControl, filters)
     .pipe(finalize(() => this.loading = false))
     .subscribe({
       next: (res) => {
