@@ -46,7 +46,7 @@ export class InstanceComponent {
       date: [dayjs().format('YYYY/MM/DD')],
     });
     
-    this.filters = {status: 'Waiting,Sent'};
+    this.filters = {status: 'Waiting,Sent,Copy'};
 
     this.loadPermission();
   }

@@ -16,6 +16,8 @@ export class ScheduleStatusPipe implements PipeTransform {
         return 'Modelo';
       case SchedulingStatus.Sent:
         return 'Enviado';
+      case SchedulingStatus.Copy:
+        return "Cópia"
     }
   }
 

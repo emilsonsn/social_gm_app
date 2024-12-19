@@ -18,5 +18,6 @@ export enum SchedulingStatus {
   Waiting = 'Waiting',
   Sent = 'Sent',
   Model = 'Model',
-  Inactive = 'Inactive'
+  Inactive = 'Inactive',
+  Copy = 'Copy',
 }

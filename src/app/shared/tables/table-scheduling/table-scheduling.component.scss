@@ -1,5 +1,5 @@
 
-.Waiting, .Inactive, .Model, .Sent{
+.Waiting, .Inactive, .Model, .Sent, .Copy{
     color: white;
     padding: 0 5px;
     border-radius: 10px;
@@ -18,6 +18,9 @@
 }
 .Sent{
     background-color: green;
+}
+.Copy{
+    background-color: purple;
 }
 .table-container{
     height: 100%;
