@@ -21,7 +21,7 @@ export class ScheduleService {
     const paginate = Utils.mountPageControl(pageControl);
     const filterParams = Utils.mountPageControl(filters);
 
-    return this._http.get<ApiResponsePageable<Scheduling>>(`${environment.api}/${this.sessionEndpoint}/search?${paginate}${filterParams}`);
+    return this._http.get<ApiResponsePageable<Scheduling>>(`${environment.api}/${this.sessionEndpoint}/all?${paginate}${filterParams}`);
 }
 
   public search(pageControl: PageControl, filters?): Observable<ApiResponsePageable<Scheduling>> {
