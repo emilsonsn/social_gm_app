@@ -6,11 +6,13 @@ export interface PrizeDraw {
   groups_name: string;
   prize_name: string;
   created_at: Date;
+  drawns: PrizeDrawDrawn[];
 }
 
 export interface PrizeDrawDrawn {
   id?: number;
   prize_draw_id: number;
-  name: string;
+  name?: string;
   number: string;
+  created_at: Date;
 }

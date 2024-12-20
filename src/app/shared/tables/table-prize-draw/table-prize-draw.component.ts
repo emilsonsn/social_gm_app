@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Order, PageControl } from '@models/application';
-import { PrizeDraw } from '@models/PrizeDraw';
+import { PrizeDraw, PrizeDrawDrawn } from '@models/PrizeDraw';
 import { Scheduling } from '@models/Scheduling';
 import { PrizeDrawService } from '@services/prizeDraw.service';
 import { UserService } from '@services/user.service';
@@ -32,19 +32,11 @@ export class TablePrizeDrawComponent implements OnInit {
   filters: any;
 
   @Output()
-  onSchedulingClick: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
-
-  @Output()
-  onSchedulingImport: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
-
-  @Output()
-  onSchedulingView: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
+  onView: EventEmitter<PrizeDrawDrawn[]> = new EventEmitter<PrizeDrawDrawn[]>();
   
   @Output()
-  onDeleteSchedulingClick: EventEmitter<number> = new EventEmitter<number>();
- 
-  @Output()
-  onSchedulingCopy: EventEmitter<Scheduling> = new EventEmitter<Scheduling>();
+  onDeleteClick: EventEmitter<number> = new EventEmitter<number>();
+
   
   public prizeDraws: PrizeDraw[] = [];
 

@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PrizeDrawService } from '@services/prizeDraw.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dialog-prize-draw',
@@ -27,7 +29,9 @@ export class DialogPrizeDrawComponent {
     @Inject(MAT_DIALOG_DATA)
     protected readonly _data: any,
     private readonly dialogRef: MatDialogRef<DialogPrizeDrawComponent>,
-    private readonly _fb: FormBuilder
+    private readonly _fb: FormBuilder,
+    private readonly _prizeDrawService: PrizeDrawService,
+    private readonly _toastrService: ToastrService,
   ) {
     this.form = this._fb.group({
       name: ['', Validators.required]
@@ -69,11 +73,10 @@ export class DialogPrizeDrawComponent {
     if (this.participants.length === 0) {
       return;
     }
-  
-    // Embaralhar participantes antes de iniciar o sorteio
-    this.shuffleParticipants();
-  
+
     this.reset();
+
+    this.shuffleParticipants();
   
     this.loading = true;
     this.currentSpeed = 1; // Velocidade inicial
@@ -121,7 +124,9 @@ export class DialogPrizeDrawComponent {
     const centerOffset = (containerWidth / 2) - (cardWidth / 2); // Posição central exata
   
     const winnerIndex = Math.floor((Math.abs(this.translateX) + centerOffset) / cardWidth) % this.participants.length;
-    this.winner = this.participants[winnerIndex];
+    this.winner = this.participants[winnerIndex];    
+
+    this.addWinner()
   
     // Calcular o deslocamento necessário para centralizar o vencedor
     const finalOffset = -(winnerIndex * cardWidth) + centerOffset;
@@ -139,12 +144,10 @@ export class DialogPrizeDrawComponent {
       if (step >= totalSteps) {
         clearInterval(animationInterval);
   
-        // Após o sorteio, resetar os participantes
-        this.shuffleParticipants();
-        this.translateX = 0; // Resetar posição
-        this.loading = false; // Permitir novo sorteio
+        this.translateX = 0;
+        this.loading = false;
       }
-    }, 20); // Intervalo de cada passo na animação
+    }, 20);
   }
   
   // Função para embaralhar os participantes
@@ -153,17 +156,35 @@ export class DialogPrizeDrawComponent {
       .map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
+    
   
-    // Tornar a lista cíclica novamente
     this.visibleParticipants = [...this.participants, ...this.participants];
   }
+
+  private addWinner(){
+    
+    this._prizeDrawService.addDrawn({
+      ...this.winner,
+      number: this.winner.phone,
+      prize_draw_id: this.prizeDrawId
+    })
+    .subscribe({
+      next: () => {
+        this._toastrService.success('Vencedor escolhido!');
+      },
+      error: (error) => {
+        this._toastrService.error(error.error.message);
+        console.error(error);
+      }
+    })
+  }
   
-  reset(){
+  private reset(){
     setTimeout(() => {
-      this.translateX = 0; // Resetar posição
-      this.winner = null; // Limpar vencedor
-      this.loading = false; // Permitir novo sorteio
-    }, 2000); // Tempo para exibir o vencedor
+      this.translateX = 0;
+      this.winner = null;
+      this.loading = false;
+    }, 500);
   }
 
 }

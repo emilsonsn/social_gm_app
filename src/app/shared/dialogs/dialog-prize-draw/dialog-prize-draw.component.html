@@ -24,12 +24,6 @@
     </div>
   </div>
   
-  <div class="controls">
-    <button (click)="startRoulette()" [disabled]="loading" mat-raised-button color="primary">
-      Sortear
-    </button>
-  </div>
-  
   <div *ngIf="winner" class="winner">
     <h3>Vencedor:</h3>
     <div class="winner-card">
@@ -45,6 +39,13 @@
       </div>
     </div>
   </div>
+
+  <div class="controls">
+    <button (click)="startRoulette()" [disabled]="loading" mat-raised-button color="primary">
+      Sortear
+    </button>
+  </div>
+  
 </div>
 
 

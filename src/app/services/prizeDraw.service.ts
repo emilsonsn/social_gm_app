@@ -39,6 +39,10 @@ export class PrizeDrawService {
       return this._http.post<ApiResponse<PrizeDraw>>(`${environment.api}/${this.sessionEndpoint}/create`, request);
   }
 
+  public addDrawn(request: PrizeDraw | FormData): Observable<ApiResponse<PrizeDraw>> {
+    return this._http.post<ApiResponse<PrizeDraw>>(`${environment.api}/${this.sessionEndpoint}/add-drawn`, request);
+}
+
   public copy(id: number): Observable<ApiResponse<PrizeDraw>> {
     return this._http.post<ApiResponse<PrizeDraw>>(`${environment.api}/${this.sessionEndpoint}/copy/${id}`, {});
   }    

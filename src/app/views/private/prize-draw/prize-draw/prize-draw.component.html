@@ -54,5 +54,7 @@
   <div id="componentTable" class="col-12 mt-4">
     <app-table-prize-draw
     [loading]="loading"
+    (onDeleteClick)="onDelete($event)"
+    (onView)="onView($event)"
     ></app-table-prize-draw>
   </div>

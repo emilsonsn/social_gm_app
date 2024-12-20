@@ -4,8 +4,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Instance } from '@models/Instance';
 import { InstanceService } from '@services/instance.service';
 import { PrizeDrawService } from '@services/prizeDraw.service';
+import { DialogDrawnsComponent } from '@shared/dialogs/dialog-drawns/dialog-drawns.component';
 import { DialogPrizeDrawComponent } from '@shared/dialogs/dialog-prize-draw/dialog-prize-draw.component';
-import { finalize } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { finalize, pipe } from 'rxjs';
 
 @Component({
   selector: 'app-prize-draw',
@@ -24,7 +26,8 @@ export class PrizeDrawComponent {
     private readonly _fb: FormBuilder, 
     private readonly _instanceService: InstanceService,
     private readonly _prizeDrawService: PrizeDrawService,
-    private readonly _dialog: MatDialog
+    private readonly _dialog: MatDialog,
+    private readonly _toastrService: ToastrService
   ){}
 
   ngOnInit(){
@@ -88,6 +91,7 @@ export class PrizeDrawComponent {
     if(!this.form.valid){
       this.form.markAllAsTouched();
       console.log(this.form.controls);
+      return;
     }
     this.loading = true;
     this._prizeDrawService.create({
@@ -110,7 +114,7 @@ export class PrizeDrawComponent {
      const dialogConfig: MatDialogConfig = {
        width: '90%',
        maxWidth: '1000px',
-       minHeight: "400px",
+       minHeight: "600px",
        hasBackdrop: true,
        closeOnNavigation: false,
      };
@@ -119,7 +123,44 @@ export class PrizeDrawComponent {
        .open(DialogPrizeDrawComponent, {
          data: data,
          ...dialogConfig,
-       });       
+       })
+       .afterClosed()
+       .subscribe(() => {
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false;
+        }, 1500);
+       });
+  }
+
+  onDelete(id){
+    this.loading = true;
+    this._prizeDrawService.delete(id)
+    .pipe(finalize(()=> this.loading = false))
+    .subscribe({
+      next: () => {
+        this._toastrService.success('Sorteio deletado com sucesso');
+      },
+      error: (error) => {
+        this._toastrService.success(error.error.message);
+      }
+    })
+  }
+
+  onView(draws){
+    const dialogConfig: MatDialogConfig = {
+      width: '90%',
+      maxWidth: '600px',      
+      hasBackdrop: true,
+      closeOnNavigation: false,
+    };
+     
+    this._dialog
+      .open(DialogDrawnsComponent, {
+        data: draws,
+        ...dialogConfig,
+      });  
+    
   }
 
 }
