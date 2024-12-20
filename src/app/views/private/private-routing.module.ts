@@ -42,6 +42,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'prize-draw',
+        loadChildren: () => import('./prize-draw/prize-draw.module').then(m => m.PrizeDrawModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'prize_draw'
+        }
+      },
+      {
         path: 'collaborator',
         loadChildren: () => import('./collaborator/collaborator.module').then(m => m.CollaboratorModule),
         canActivate: [permissionGuard],

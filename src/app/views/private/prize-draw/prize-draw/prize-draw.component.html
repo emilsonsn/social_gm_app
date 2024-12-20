@@ -1,0 +1,58 @@
+<form [formGroup]="form" class="mt-3" style="overflow: hidden;">
+    <app-loading [loading]="loading"></app-loading>
+    <div class="row">
+
+      <div class="col col-md-4 mb-3" >
+        <span class="fw-bolder">Instancia</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select formControlName="instance_id" placeholder="Selecione um grupo">
+            <mat-option *ngFor="let instance of instances"
+            [value]="instance.id">
+                {{ instance.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>  
+
+      <div class="col col-md-4 mb-3" >
+        <span class="fw-bolder">Grupo</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select  multiple formControlName="groups" placeholder="Selecione um grupo">
+            <mat-option *ngFor="let group of groups"
+            (click)="setGroupName(group.subject)"
+            [value]="group.id">{{ group.subject }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>        
+      
+      <div class="col col-md-4 mb-3">
+        <span class="fw-bolder">Prêmio</span>
+        <mat-form-field appearance="outline" class="w-100">
+          <input type="text" formControlName="prize_name" matInput placeholder="Nome do Prêmio" />
+        </mat-form-field>
+      </div>
+
+      <div class="w-100 me-2">
+        <div id="actionsDialog" class="flex-sm-row flex-column">
+          <div id="buttonsDialog" class="flex-sm-row flex-column">
+            <div class="col-auto">
+                <button mat-raised-button color="primary"
+                id="submit"
+                (click)="!loading ? onConfirm() : null"
+                style="width: 100%;"
+                >
+                    Iniciar sorteio
+                </button>                
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <div id="componentTable" class="col-12 mt-4">
+    <app-table-prize-draw
+    [loading]="loading"
+    ></app-table-prize-draw>
+  </div>

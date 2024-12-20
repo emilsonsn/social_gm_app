@@ -1,0 +1,34 @@
+
+.Waiting, .Inactive, .Model, .Sent, .Copy{
+    color: white;
+    padding: 0 5px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.Waiting{
+    background-color: orange;
+
+}
+.Inactive{
+    background-color: red;
+}
+.Model{
+    background-color: rgb(0, 103, 121);
+}
+.Sent{
+    background-color: green;
+}
+.Copy{
+    background-color: purple;
+}
+.table-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // background: $white-100;
+    // border-radius: 4px;
+    // box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.11), 0 7px 10px -5px rgba(0, 0, 0, 0.06);
+  }

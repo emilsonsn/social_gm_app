@@ -1,0 +1,50 @@
+<div class="main">
+  <img *ngIf="winner" src="https://usagif.com/wp-content/uploads/gif/confetti-25.gif" alt="">
+
+  <div class="p-4 header">
+    <h1 class="text-center">
+      {{ _data.prize_name}}
+    </h1>
+  </div>
+
+  <div class="roulette-container" *ngIf="!winner">
+    <div class="roulette" [ngStyle]="{'transform': 'translateX(' + translateX + 'px)'}">
+      <div *ngFor="let participant of participants" class="participant-card">
+        <img *ngIf="participant.imgUrl" [src]="participant.imgUrl" alt="{{participant.name}}" />
+        <div class="info">
+          <span class="name">
+            <a target="_blank" href="https://wa.me/{{ participant.phone }}">
+              <i class="fa-brands fa-whatsapp"></i>
+              {{ participant.phone }}
+            </a>
+          </span>
+          <span class="admin" *ngIf="participant.admin === 'admin'">(Admin)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <button (click)="startRoulette()" [disabled]="loading" mat-raised-button color="primary">
+      Sortear
+    </button>
+  </div>
+  
+  <div *ngIf="winner" class="winner">
+    <h3>Vencedor:</h3>
+    <div class="winner-card">
+      <img *ngIf="winner.imgUrl" [src]="winner.imgUrl" alt="{{winner.name}}" />
+      <div class="info">
+        <span class="name">
+          <a target="_blank" href="https://wa.me/{{ winner.phone }}">
+            <i class="fa-brands fa-whatsapp"></i>
+            {{ winner.phone }}
+          </a>
+        </span>
+        <span class="admin" *ngIf="winner.admin === 'admin'">(Admin)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+

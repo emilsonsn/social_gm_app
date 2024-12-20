@@ -36,6 +36,11 @@ export class LayoutPrivateComponent implements OnInit {
       route: '/painel/web-chat'
     },
     {
+      label: 'Sorteio',
+      icon: 'fa-solid fa-award',
+      route: '/painel/prize-draw'
+    },
+    {
       label: 'Usuários',
       icon: 'fa-solid fa-users',
       route: '/painel/collaborator'
@@ -54,8 +59,7 @@ export class LayoutPrivateComponent implements OnInit {
     private readonly _sessionService: SessionService,
     private readonly _sessionQuery : SessionQuery
   ) { }
-
-
+ 
   ngOnInit(): void {
     document.getElementById('template').addEventListener('click', () => {
       this._sidebarService.retractSidebar();

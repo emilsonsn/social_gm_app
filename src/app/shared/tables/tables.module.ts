@@ -14,11 +14,13 @@ import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { TableSchedulingComponent } from './table-scheduling/table-scheduling.component';
 import { TableLinkComponent } from './table-link/table-link.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TablePrizeDrawComponent } from './table-prize-draw/table-prize-draw.component';
 
 const tables = [
   TableUserComponent,
   TableSchedulingComponent,
-  TableLinkComponent
+  TableLinkComponent,
+  TablePrizeDrawComponent
 ]
 
 @NgModule({

@@ -28,6 +28,7 @@ import { DialogScheduleComponent } from './dialog-schedule/dialog-schedule.compo
 import { DialogLinkComponent } from './dialog-link/dialog-link.component';
 import { DialogAutomationComponent } from './dialog-automation/dialog-automation.component';
 import { DialogUserComponent } from './dialog-user/dialog-user.component';
+import { DialogPrizeDrawComponent } from './dialog-prize-draw/dialog-prize-draw.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { DialogUserComponent } from './dialog-user/dialog-user.component';
     DialogLinkComponent,
     DialogAutomationComponent,
     DialogUserComponent,
+    DialogPrizeDrawComponent
   ],
   imports: [
     CommonModule,
