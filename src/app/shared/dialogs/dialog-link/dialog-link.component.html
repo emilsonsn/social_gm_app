@@ -27,7 +27,17 @@
           <mat-form-field appearance="outline">
             <input type="text" formControlName="url" matInput placeholder="Url" />
           </mat-form-field>
-        </div>        
+        </div>     
+                      
+        <div class="col col-md-12 mt-3" *ngIf="isAdmin">
+          <span class="fw-bolder">Usuário</span>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="user_id" placeholder="Selecione um usuário">
+              <mat-option *ngFor="let user of users"              
+              [value]="user.id">{{ user.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
   
     </form>
