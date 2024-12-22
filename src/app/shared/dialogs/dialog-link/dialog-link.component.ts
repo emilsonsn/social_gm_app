@@ -40,7 +40,6 @@ export class DialogLinkComponent {
     this.loadPosition();
 
     if(this._data.link){
-      debugger;
       this.title = 'Editar Link';      
       this.form.patchValue(this._data.link);
     }
