@@ -15,7 +15,7 @@
           <span class="name">
             <a target="_blank" href="https://wa.me/{{ participant.phone }}">
               <i class="fa-brands fa-whatsapp"></i>
-              {{ participant.phone }}
+              {{ formatPhoneNumber(participant.phone) }}
             </a>
           </span>
           <span class="admin" *ngIf="participant.admin === 'admin'">(Admin)</span>
@@ -32,7 +32,7 @@
         <span class="name">
           <a target="_blank" href="https://wa.me/{{ winner.phone }}">
             <i class="fa-brands fa-whatsapp"></i>
-            {{ winner.phone }}
+            {{ formatPhoneNumber(winner.phone) }}
           </a>
         </span>
         <span class="admin" *ngIf="winner.admin === 'admin'">(Admin)</span>

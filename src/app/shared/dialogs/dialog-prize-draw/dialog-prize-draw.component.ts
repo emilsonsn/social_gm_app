@@ -113,6 +113,20 @@ export class DialogPrizeDrawComponent {
       }
     }, intervalDuration);
   }
+
+  public formatPhoneNumber(phoneNumber) {
+    const phoneStr = phoneNumber.toString();
+    
+    const countryCode = `+${phoneStr.slice(0, 2)}`;
+    const areaCode = phoneStr.slice(2, 4);
+    const prefix = phoneStr.slice(4, 5);
+    const hiddenPart = '****';
+    const lastDigits = phoneStr.slice(-4);
+
+    const formattedNumber = `${countryCode} (${areaCode}) ${prefix}${hiddenPart}${lastDigits}`;
+
+    return formattedNumber;
+}
   
   
   private stopRoulette(): void {
