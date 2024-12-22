@@ -65,19 +65,19 @@
         </div>                                  
   
         <!-- Vídeo -->
-        <div (change)="onFileChange($event, 'video_path')" *ngIf="form.get('midia').value === 'video'" class="col col-md-12 mb-3">
+        <div (change)="onFileChange($event, 'video_path')" *ngIf="form.get('midia').value === 'video'" class="col-md-12 mb-3">
           <span class="fw-bolder">Vídeo</span>
           <input type="file" formControlName="video_path" accept=".mp4" class="form-control" />
         </div>
   
         <!-- Áudio -->
-        <div (change)="onFileChange($event, 'audio_path')" *ngIf="form.get('midia').value === 'audio'" class="col col-md-12 mb-3">
+        <div (change)="onFileChange($event, 'audio_path')" *ngIf="form.get('midia').value === 'audio'" class="col-md-12 mb-3">
           <span class="fw-bolder">Áudio</span>
           <input type="file" formControlName="audio_path" accept=".mp3, .ogg" class="form-control" />
         </div>
   
         <!-- Imagem -->
-        <div (change)="onFileChange($event, 'image_path')" *ngIf="form.get('midia').value === 'imagem'" class="col col-md-12 mb-3">
+        <div (change)="onFileChange($event, 'image_path')" *ngIf="form.get('midia').value === 'imagem'" class="col-md-12 mb-3">
           <span class="fw-bolder">Imagem</span>
           <input type="file" formControlName="image_path" accept=".jpg, .png" class="form-control" />
         </div>
