@@ -6,6 +6,8 @@ import {User} from "@models/user";
 import {AuthService} from "@services/auth.service";
 import { SessionService } from '@store/session.service';
 import { SessionQuery } from '@store/session.query';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogUserComponent } from '@shared/dialogs/dialog-user/dialog-user.component';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +30,8 @@ export class HeaderComponent implements OnInit {
     private readonly _sidebarService: SidebarService,
     private readonly _authService: AuthService,
     private readonly _sessionService : SessionService,
-    private readonly _sessionQuery : SessionQuery
+    private readonly _sessionQuery : SessionQuery,
+    private readonly _dialog: MatDialog,
   ) {
   }
 
@@ -39,7 +42,6 @@ export class HeaderComponent implements OnInit {
     });
 
     this._sessionService.getUserFromBack().subscribe();
-
   }
 
   private updateActiveLabel() {
@@ -73,6 +75,32 @@ export class HeaderComponent implements OnInit {
 
   public get isSidebarOpen() {
     return this._sidebarService.showSidebar();
+  }
+
+  openUserModal(){
+    const dialogConfig: MatDialogConfig = {
+      width: '90%',
+      maxWidth: '800px',
+      hasBackdrop: true,
+      closeOnNavigation: false,
+    };
+
+    const data = {
+      user: this.user,
+      view: false
+    }
+
+    this._dialog
+      .open(DialogUserComponent, {
+        data,
+        ...dialogConfig,
+      })
+      .afterClosed()
+      .subscribe((res: User) => {
+        this._sessionService.getUserFromBack().subscribe(user => {
+          this.user = user;
+        });
+      });
   }
 
 
