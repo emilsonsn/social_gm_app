@@ -44,7 +44,7 @@ export class TablePrizeDrawComponent implements OnInit {
     {
       slug: "instance",
       order: false,
-      title: "instance_name",
+      title: "Conta do Whatsapp",
       align: "justify-content-center",
     },
     {

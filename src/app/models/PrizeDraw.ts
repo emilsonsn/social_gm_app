@@ -1,3 +1,5 @@
+import { Instance } from "./Instance";
+
 export interface PrizeDraw {
   id?: number;
   instance_id: string;
@@ -7,6 +9,7 @@ export interface PrizeDraw {
   prize_name: string;
   created_at: Date;
   drawns: PrizeDrawDrawn[];
+  instance: Instance;
 }
 
 export interface PrizeDrawDrawn {
