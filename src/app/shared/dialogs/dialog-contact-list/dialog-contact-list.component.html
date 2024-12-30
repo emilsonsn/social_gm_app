@@ -1,0 +1,63 @@
+<mat-dialog-content >
+    <app-loading [loading]="loading"></app-loading>
+    <div class="d-flex align-items-center justify-content-between">
+        {{ title }}
+        <div class="d-flex align-items-center gap-2">
+          <div matRipple class="close" (click)="onCancel()">
+            <i class="fa-solid fa-close"></i>
+          </div>
+        </div>
+    </div>
+  
+    <mat-divider class="my-3"></mat-divider>
+  
+    <form [formGroup]="form" class="mt-3" style="overflow: hidden;">
+  
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <span class="fw-bolder">Descrição</span>
+          <mat-form-field appearance="outline">
+            <input type="text" formControlName="description" matInput placeholder="Descrição da lista"/>
+          </mat-form-field>
+        </div>
+
+        <div class="col mb-3" *ngIf="!_data.contact">
+          <span class="fw-bolder">Arquivo</span>
+          <input
+            type="file"
+            (change)="onFileChange($event)"
+            placeholder="Selecione o arquivo"
+            class="form-control"
+          />
+        </div>
+        
+      </div>
+  
+    </form>
+</mat-dialog-content>
+
+<div id="componentTable" class="col-12 mt-4" *ngIf="_data.contact?.contacts">
+  <app-table-contacts
+  [contacts]="_data.contact?.contacts"
+  >
+
+  </app-table-contacts>
+</div>
+  
+<mat-dialog-actions *ngIf="!_data.contact">
+  <div class="w-100 me-2">
+    <div id="actionsDialog" class="flex-sm-row flex-column">
+      <div id="buttonsDialog" class="flex-sm-row flex-column">
+        <div class="col-auto">
+          <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
+        </div>
+        <div class="col-auto">
+          <button matRipple id="submit" class="button primary" (click)="!loading ? onConfirm() : null">{{
+            "Salvar"
+            }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>
+  

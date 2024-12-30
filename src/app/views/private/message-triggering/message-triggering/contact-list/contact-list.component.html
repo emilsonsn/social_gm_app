@@ -1,0 +1,23 @@
+<div class="filters mb-3">
+    <div class="row col-12 justify-content-end">
+        <div class="col-md-2 pt-4">            
+            <button (click)="openContactList()" class="btn btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-plus"></i>
+                Importar lista
+            </button>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div id="componentTable" class="col-12 mt-4">
+    <app-table-contact-list
+    (onLinkClick)="openContactList($event)"
+    (onLinkView)="openContactList($event, true)"
+    [loading]="loading"
+    (onDeleteLinkClick)="deleteContact($event)"
+    >
+
+    </app-table-contact-list>
+</div>

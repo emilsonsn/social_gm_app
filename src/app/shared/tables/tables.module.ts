@@ -15,12 +15,18 @@ import { TableSchedulingComponent } from './table-scheduling/table-scheduling.co
 import { TableLinkComponent } from './table-link/table-link.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TablePrizeDrawComponent } from './table-prize-draw/table-prize-draw.component';
+import { TableContactListComponent } from './table-contact-list/table-contact-list.component';
+import { TableContactsComponent } from './table-contacts/table-contacts.component';
+import { TableTriggeringComponent } from './table-triggering/table-triggering.component';
 
 const tables = [
   TableUserComponent,
   TableSchedulingComponent,
   TableLinkComponent,
-  TablePrizeDrawComponent
+  TablePrizeDrawComponent,
+  TableContactListComponent,
+  TableContactsComponent,
+  TableTriggeringComponent
 ]
 
 @NgModule({

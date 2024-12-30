@@ -1,0 +1,70 @@
+<div class="table-container">
+
+    <div class="overflow-auto">
+      <table class="table table-responsive">
+        <thead>
+          @for (col of columns; track col) {
+            <th
+              [class.hasorder]="col.order"
+              [ngStyle]="{ cursor: 'pointer' }"
+              [class.active-order]="pageControl.orderField === col.slug"
+              [class]="col.align"
+            >
+              <!--(click)="onClickOrderBy(col.slug, col.order)" -->
+              <div
+                style="color: #a2a1a8"
+                [class]="col.align"
+              >
+                {{ col.title }}
+                <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
+                  {{
+                    pageControl.order === "DESC" ? "arrow_downward" : "arrow_upward"
+                  }}
+                </i>
+              </div>
+            </th>
+          }
+        </thead>
+        <tbody>
+        <tr *ngIf="loading">
+          <td [attr.colspan]="columns.length + 1">
+            <div id="mat-loading">
+              <mat-spinner></mat-spinner>
+            </div>
+          </td>
+        </tr>
+          @if (!loading) {
+            <tr *ngIf="!contacts?.length">
+              <td [attr.colspan]="columns.length + 1" class="text-center">
+                <div>Nenhum resultado encontrado</div>
+              </td>
+            </tr>
+            @for (contact of contacts; track contact) {
+              <tr
+                class="table-line-hover"
+                style="outline: none; cursor: pointer"
+              >
+              
+                <td>
+                  <div class="text-start">
+                    {{ contact?.name }}
+                  </div>
+                </td>           
+                <td>
+                  <div class="text-end">
+                    {{ contact?.phone | phoneMask}}
+                  </div>
+                </td>       
+                <td>
+                  <div class="text-end">
+                    {{ contact?.is_whatsapp | is_whatsapp }}
+                  </div>
+                </td> 
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

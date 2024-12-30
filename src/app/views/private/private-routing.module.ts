@@ -42,6 +42,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'message-triggering',
+        loadChildren: () => import('./message-triggering/message-triggering.module').then(m => m.MessageTriggeringModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'collaborator'
+        }
+      },      
+      {
         path: 'prize-draw',
         loadChildren: () => import('./prize-draw/prize-draw.module').then(m => m.PrizeDrawModule),
         canActivate: [permissionGuard],

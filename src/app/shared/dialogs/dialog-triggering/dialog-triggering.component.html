@@ -1,0 +1,143 @@
+<mat-dialog-content>
+  <app-loading [loading]="loading"></app-loading>
+  <div class="d-flex align-items-center justify-content-between">
+    {{ title }}
+    <div class="d-flex align-items-center gap-2">
+      <div matRipple class="close" (click)="onCancel()">
+        <i class="fa-solid fa-close"></i>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="my-3"></mat-divider>
+
+  <form [formGroup]="form" class="mt-3" style="overflow: hidden;">
+    <div class="row">
+      <!-- Descrição -->
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Descrição</span>
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            formControlName="description"
+            matInput
+            placeholder="Descrição do disparo"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- Lista de Contatos -->
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Lista de Contatos</span>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="contact_list_id" placeholder="Selecione a lista de contatos">
+            <mat-option *ngFor="let list of contactLists" [value]="list.id">
+              {{ list.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Evo URL -->
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Evolution URL</span>
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            formControlName="evo_url"
+            matInput
+            placeholder="Evo URL"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- Evo Key -->
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Evolution ApiKey</span>
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            formControlName="evo_key"
+            matInput
+            placeholder="Evo Key"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- Evo Key -->
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Evolution Instância</span>
+        <mat-form-field appearance="outline">
+          <input
+            type="text"
+            formControlName="evo_instance"
+            matInput
+            placeholder="Evo instancia"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- Intervalo -->
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Intervalo (minutos)</span>
+        <mat-form-field appearance="outline">
+          <input
+            type="number"
+            step="1"
+            formControlName="interval"
+            matInput
+            placeholder="Intervalo"
+          />
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="_data.triggering?.path">
+        <img src="{{ _data.triggering?.path }}" alt="">
+      </div>
+
+      <!-- Arquivo -->
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Imagem</span>
+        <input
+          type="file"
+          accept="image/*,video/*"
+          (change)="onFileChange($event)"
+          class="form-control"
+        />
+        <div *ngIf="form.get('file').errors?.invalidFileType" class="text-danger">
+          Arquivo inválido. Apenas imagens ou vídeos são permitidos.
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Mensagens</span>
+        <div formArrayName="messages">
+          <div *ngFor="let message of messages.controls; let i = index" class="d-flex align-items-center gap-2 mb-2">
+            <mat-form-field class="flex-grow-1" appearance="outline">
+              <textarea
+                type="text"
+                [formControlName]="i"
+                placeholder="Mensagem {{ i + 1 }}"
+                matInput
+              ></textarea>
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeMessage(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="addMessage()">Adicionar Mensagem</button>
+      </div>
+      
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="w-100 d-flex justify-content-end">
+    <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
+    <button matRipple id="submit" class="button primary" (click)="!loading ? onConfirm() : null">{{
+      title === 'Editar disparo' ? 'Salvar' : 'Criar'
+    }}</button>
+  </div>
+</mat-dialog-actions>

@@ -36,6 +36,11 @@ export class LayoutPrivateComponent implements OnInit {
       route: '/painel/web-chat'
     },
     {
+      label: 'Disparos',
+      icon: 'fa-solid fa-paper-plane',
+      route: '/painel/message-triggering',
+    },
+    {
       label: 'Sorteio',
       icon: 'fa-solid fa-award',
       route: '/painel/prize-draw'
