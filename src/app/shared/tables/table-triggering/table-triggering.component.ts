@@ -46,10 +46,22 @@ export class TableTriggeringComponent implements OnInit {
       align: "justify-content-start",
     },
     {
-      slug: "interval",
+      slug: "notfound_contacts",
       order: true,
-      title: "Intervalo (minutos)",
-      align: "justify-content-start",
+      title: "Sem whatsapp",
+      align: "justify-content-end",
+    },
+    {
+      slug: "pending_contacts",
+      order: true,
+      title: "Contatos restantes",
+      align: "justify-content-end",
+    },
+    {
+      slug: "remaining_time",
+      order: true,
+      title: "Tempo restante (minutos)",
+      align: "justify-content-end",
     },
     {
       slug: "status",

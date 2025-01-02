@@ -55,10 +55,20 @@
                   </div>
                 </td>
                 <td>
-                  <div class="text-start">
-                    {{ triggering?.interval }}
+                  <div class="text-end">
+                    {{ triggering?.notfound_contacts }}
                   </div>
                 </td>   
+                <td>
+                  <div class="text-end">
+                    {{ triggering?.pending_contacts }}
+                  </div>
+                </td> 
+                <td>
+                  <div class="text-end">
+                    {{ triggering?.remaining_time }}
+                  </div>
+                </td> 
                 <td>
                   <div class="text-center {{ triggering?.status }}">
                     {{ triggering?.status | status }}
