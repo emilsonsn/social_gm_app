@@ -40,10 +40,10 @@ export class TableTriggeringComponent implements OnInit {
       align: "text-center",
     },
     {
-      slug: "contacts",
+      slug: "whatsapp_contacts",
       order: true,
-      title: "Lista de contatos",
-      align: "justify-content-start",
+      title: "Enviados",
+      align: "justify-content-end",
     },
     {
       slug: "notfound_contacts",
