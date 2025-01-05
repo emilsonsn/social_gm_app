@@ -2,7 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AutomationService } from '@services/automation.service';
+import { InstanceService } from '@services/instance.service';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-automation',
@@ -13,6 +15,9 @@ export class DialogAutomationComponent {
  public form: FormGroup;
   public loading: boolean = false;
   public title: string = 'Configuração de mensagens';
+
+  groups: [{id: string, subject: string}];
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected readonly _data,
@@ -20,6 +25,8 @@ export class DialogAutomationComponent {
     private readonly _fb : FormBuilder,
     private readonly _automationService: AutomationService,
     private readonly _toastrService: ToastrService,
+    private readonly _instanceService: InstanceService,
+    
   ){}
 
   ngOnInit(): void {
@@ -28,11 +35,14 @@ export class DialogAutomationComponent {
       id: [null],
       welcome_message: ['', Validators.required],
       farewell_message: ['', Validators.required],
-      instance_id: [null]
+      instance_id: [null],
+      group_id: [null],
+
     });
 
     this.form.get('instance_id').patchValue(this._data.instance_id);
-    this.getAutomation()
+    this.getAutomation();
+    this.getGroups();
   }
 
   getAutomation(){
@@ -47,6 +57,20 @@ export class DialogAutomationComponent {
       },
       error: (error) => {
 
+      }
+    })
+  }
+
+  getGroups(){
+    this.loading = true;
+    this._instanceService.group(this.form.get('instance_id').value)
+    .pipe(finalize(() => this.loading = false))
+    .subscribe({
+      next: (res) => {
+        this.groups = res.data;            
+      },
+      error: (err) => {
+        console.error(err);
       }
     })
   }
