@@ -108,7 +108,7 @@ export class InstanceComponent {
         this.filters = {status: 'Model'};
       }else{
         this.filters = {
-          status: 'Waiting,Sent',
+          status: 'Waiting,Sent,Copy',
           ...this.form.getRawValue(),
           date: this.form.get('date').value ? dayjs(this.form.get('date').value).format('YYYY-MM-DD') : null
         };
