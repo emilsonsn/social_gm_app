@@ -41,8 +41,12 @@ export class DialogPrizeDrawComponent {
   ngOnInit(): void {
     if (this._data) {
       this.prizeDrawId = this._data.id;
+      console.log({participantes: this._data.participants});
       this.participants = Object.values(this._data.participants)
-        .filter((participant: any) => !participant.admin)
+        .filter((participant: any) => {
+          console.log(participant.admin);
+          return !participant.admin
+        })
         .map((participant: any) => ({
           id: participant.id,
           name: participant.name || '',

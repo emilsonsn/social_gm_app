@@ -37,7 +37,6 @@ export class TablePrizeDrawComponent implements OnInit {
   @Output()
   onDeleteClick: EventEmitter<number> = new EventEmitter<number>();
 
-  
   public prizeDraws: PrizeDraw[] = [];
 
   public columns = [
